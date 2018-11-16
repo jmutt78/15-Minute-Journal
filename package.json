@@ -1,0 +1,26 @@
+{
+  "name": "15-minute-journal",
+  "version": "1.0.0",
+  "description": "15 Min Jounral",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jmutt78/15-Minute-Journal.git"
+  },
+  "author": "Justin McIntosh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jmutt78/15-Minute-Journal/issues"
+  },
+  "homepage": "https://github.com/jmutt78/15-Minute-Journal#readme",
+  "dependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.0",
+    "express": "^4.16.4",
+    "mocha": "^5.2.0",
+    "node": "^11.1.0"
+  }
+}
