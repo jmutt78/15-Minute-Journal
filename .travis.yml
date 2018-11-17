@@ -2,3 +2,10 @@ language: node_js
 node_js: node
 services:
 - mongodb
+deploy:
+  provider: heroku
+  api_key:
+    secure: zHGy66IAKhfWX2koVOEotcc0EtypDY/qs62SjukQaoXPBk6n1WTiXRAlkrXGh3lsyhi8++HvLaa3SDr2+bcWfIqc04/gswmoR6/vQnjhDZOf2h3cXX7XUH3a2xIQwr2H3XKpIMB7TGMtW1bqfmHN0luCYDD25yf6ttMsIBDX7enEu5wXt135qSCsX3wRX4BRJyL3WMP61qM3l5puRxWpmkCav4gtirFmIfC9pLaTgc40zs6V1A4A0KJiwMkY8smYRPSzILJz2vRf+FC7cLCwGFqenVej1iM+nCTtwxehtu+ZsWgdcipFUp2lc45x2Ltdo2efQ8K6X0BFOHzMnfiFUhcc4b3CTUPocDIfBW0e1vVa4BrKs3eCNB2w+6bAr2Z5iB3rQInJ1ml5/eGbkH7jbuX67Y8auCvKryr4S568nmD6uTNpCYzbHLREHdta+PNVji3DYBs+oTEfu6VZ1QGWzjhD6WsRDcKqyWzKW9B6JEp0tWIMmYQvkSHAFedWZK54SND4S4oBJHFPq6jpR/p/pE2XDF/SXWko4Gi6PXwLy5BPXuTOG5pHsm90PnEmC3kd/cFQmFYo0PEp+uAxYUTn0gbHpLKz05idbEJrD4U5n7SFzPzUQT25PiBKwdDSeDDkSimAYxi9qW9TycIRcteC6TGEleWMA1vtViwAFEHVKpQ=
+  app: obscure-ocean-89688
+  on:
+    repo: jmutt78/15-Minute-Journal
