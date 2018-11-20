@@ -28,7 +28,7 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  const requiredFields = ['text', 'due'];
+  const requiredFields = ['text','due','completeDate'];
   for (let i = 0; i < requiredFields.length; i++) {
     const field = requiredFields[i];
     if (!(field in req.body)) {
@@ -70,7 +70,7 @@ router.put('/:id', (req, res) => {
   }
 
   const updated = {};
-const updateableFields = ['title', 'due'];
+const updateableFields = ['title', 'due', 'completeDate'];
 updateableFields.forEach(field => {
   if (field in req.body) {
     updated[field] = req.body[field];
