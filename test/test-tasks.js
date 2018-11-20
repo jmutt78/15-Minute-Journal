@@ -40,7 +40,7 @@ function seedTaskData() {
   for (let i = 1; i <= 10; i++) {
     seedData.push({
       text: faker.lorem.sentence(),
-      due: 43389,
+      due: Date.now()
     });
   }
   // this will return a promise
@@ -114,5 +114,92 @@ describe('GET endpoint', function () {
        });
    });
  });
+
+//Still need to figure out update of due
+//POST Test
+ describe('POST endpoint', function () {
+
+   it('should add a new task post', function () {
+
+     const newTask = {
+       text: faker.lorem.sentence(),
+       due: Date.now()
+     };
+
+     return chai.request(app)
+       .post('/tasks')
+       .send(newTask)
+       .then(function (res) {
+         res.should.have.status(201);
+         res.should.be.json;
+         res.body.should.be.a('object');
+         res.body.should.include.keys(
+           'id', 'text', 'due', 'created');
+         res.body.text.should.equal(newTask.text);
+         res.body.id.should.not.be.null;
+         res.body.due.should.equal(newTask.due);
+         return Tasks.findById(res.body.id);
+       })
+       .then(function (task) {
+         task.text.should.equal(newTask.text);
+         task.due.should.equal(newTask.due);
+       });
+   });
+ });
+
+ describe('PUT endpoint', function () {
+
+   it('should update fields you send over', function () {
+     const updateData = {
+       text: faker.lorem.sentence(),
+       due: faker.date.future(1)
+       }
+     });
+
+     return Tasks
+       .findOne()
+       .then(task => {
+         updateData.id = task.id;
+
+         return chai.request(app)
+           .put(`/tasks/${task.id}`)
+           .send(updateData);
+       })
+       .then(res => {
+         res.should.have.status(204);
+         return Tasks.findById(updateData.id);
+       })
+       .then(task => {
+         task.text.should.equal(updateData.text);
+       });
+   });
+
+
+ describe('DELETE endpoint', function () {
+
+   it('should delete a task by id', function () {
+
+     let task;
+
+     return Tasks
+       .findOne()
+       .then(_task => {
+         task = _task;
+         return chai.request(app).delete(`/tasks/${task.id}`);
+       })
+       .then(res => {
+         res.should.have.status(204);
+         return Tasks.findById(task.id);
+       })
+       .then(_post => {
+         // when a variable's value is null, chaining `should`
+         // doesn't work. so `_post.should.be.null` would raise
+         // an error. `should.be.null(_post)` is how we can
+         // make assertions about a null value.
+         should.not.exist(_post);
+       });
+   });
+ });
+
 
 });
