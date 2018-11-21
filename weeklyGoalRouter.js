@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
-const { Tasks } = require("./models");
+const { WeeklyGoal } = require("./models");
 
 
 
 router.get('/', (req, res) => {
-  Tasks
+  WeeklyGoal
     .find()
     .then(posts => {
       res.json(posts.map(post => post.serialize()));
@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-  Tasks
+  WeeklyGoal
     .findById(req.params.id)
     .then(post => res.json(post.serialize()))
     .catch(err => {
@@ -28,7 +28,7 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  const requiredFields = ['text','due',];
+  const requiredFields = ['text'];
   for (let i = 0; i < requiredFields.length; i++) {
     const field = requiredFields[i];
     if (!(field in req.body)) {
@@ -38,7 +38,7 @@ router.post('/', (req, res) => {
     }
   }
 
-  Tasks
+  WeeklyGoal
   .create({
     text: req.body.text
   })
@@ -51,7 +51,7 @@ router.post('/', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-  Tasks
+  WeeklyGoal
     .findByIdAndRemove(req.params.id)
     .then(() => {
       res.status(204).json({ message: 'success' });
@@ -77,7 +77,7 @@ updateableFields.forEach(field => {
   }
 });
 
-Tasks
+WeeklyGoal
   .findByIdAndUpdate(req.params.id, { $set: updated }, { new: true })
   .then(updatedTask => res.status(204).end())
   .catch(err => res.status(500).json({ message: 'Something went wrong' }));
@@ -85,10 +85,10 @@ Tasks
 
 
 router.delete('/:id', (req, res) => {
-Tasks
+WeeklyGoal
   .findByIdAndRemove(req.params.id)
   .then(() => {
-    console.log(`Deleted task post with id \`${req.params.id}\``);
+    console.log(`Deleted task goal with id \`${req.params.id}\``);
     res.status(204).end();
   });
 });

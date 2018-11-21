@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 const should = chai.should();
 
 const {
-  Tasks
+  Goals
 } = require('../models');
 const {
   closeServer,
@@ -34,28 +34,27 @@ function tearDownDb() {
 
 
 //Seed the data
-function seedTaskData() {
-  console.info('seeding task data');
+function seedGoalData() {
+  console.info('seeding goal data');
   const seedData = [];
   for (let i = 1; i <= 10; i++) {
     seedData.push({
       text: faker.lorem.sentence(),
-      due: Date.now()
     });
   }
   // this will return a promise
-  return Tasks.insertMany(seedData);
+  return WeeklyGoal.insertMany(seedData);
 }
 
 //Server
-describe('task API resource', function() {
+describe('goal API resource', function() {
 
   before(function() {
     return runServer(TEST_DATABASE_URL);
   });
 
   beforeEach(function() {
-    return seedTaskData();
+    return seedGoalData();
   });
 
   afterEach(function() {
@@ -69,18 +68,18 @@ describe('task API resource', function() {
 //Get Request Test
 describe('GET endpoint', function () {
 
-   it('should return all existing tasks', function () {
+   it('should return all existing goals', function () {
 
      let res;
      return chai.request(app)
-       .get('/tasks')
+       .get('/weekly')
        .then(_res => {
          res = _res;
          res.should.have.status(200);
 
          res.body.should.have.lengthOf.at.least(1);
 
-         return Tasks.count();
+         return WeeklyGoal.count();
        })
        .then(count => {
 
@@ -88,11 +87,11 @@ describe('GET endpoint', function () {
        });
    });
 
-   it('should return tasks with right fields', function () {
+   it('should return goals with right fields', function () {
 
-     let resTask;
+     let resGoal;
      return chai.request(app)
-       .get('/tasks')
+       .get('/weekly')
        .then(function (res) {
 
          res.should.have.status(200);
@@ -100,17 +99,17 @@ describe('GET endpoint', function () {
          res.body.should.be.a('array');
          res.body.should.have.lengthOf.at.least(1);
 
-         res.body.forEach(function (task) {
-           task.should.be.a('object');
-           task.should.include.keys('id', 'text', 'due', 'created', 'completed');
+         res.body.forEach(function (goal) {
+           goal.should.be.a('object');
+           goal.should.include.keys('id', 'text', 'due', 'created');
          });
 
-         resTask = res.body[0];
-         return Tasks.findById(resTask.id);
+         resGoal = res.body[0];
+         return WeeklyGoal.findById(resGoal.id);
        })
-       .then(task => {
-         resTask.text.should.equal(task.text);
-         resTask.due.should.equal(task.due);
+       .then(goal => {
+         resGoal.text.should.equal(goal.text);
+         resGoal.due.should.equal(goal.due);
        });
    });
  });
@@ -119,28 +118,29 @@ describe('GET endpoint', function () {
 //POST Test
  describe('POST endpoint', function () {
 
-   it('should add a new task task', function () {
+   it('should add a new goal goal', function () {
 
-     const newTask = {
+     const newGoal = {
        text: faker.lorem.sentence(),
-       due: Date.now()
      };
 
      return chai.request(app)
-       .post('/tasks')
-       .send(newTask)
+       .post('/goals')
+       .send(newGoal)
        .then(function (res) {
          res.should.have.status(201);
          res.should.be.json;
          res.body.should.be.a('object');
          res.body.should.include.keys(
-           'id', 'text', 'due', 'created', 'completed');
-         res.body.text.should.equal(newTask.text);
+           'id', 'text', 'due', 'created');
+         res.body.text.should.equal(newGoal.text);
          res.body.id.should.not.be.null;
-         return Tasks.findById(res.body.id);
+         res.body.due.should.equal(newGoal.due);
+         return WeeklyGoal.findById(res.body.id);
        })
-       .then(function (task) {
-         task.text.should.equal(newTask.text);
+       .then(function (goal) {
+         goal.text.should.equal(newGoal.text);
+         goal.due.should.equal(newGoal.due);
        });
    });
  });
@@ -154,44 +154,43 @@ describe('GET endpoint', function () {
        }
      });
 
-     return Tasks
+     return WeeklyGoal
        .findOne()
-       .then(task => {
-         updateData.id = task.id;
+       .then(goal => {
+         updateData.id = goal.id;
 
          return chai.request(app)
-           .put(`/tasks/${task.id}`)
+           .put(`/weekly/${goal.id}`)
            .send(updateData);
        })
        .then(res => {
          res.should.have.status(204);
-         return Tasks.findById(updateData.id);
+         return TaWeeklyGoalsks.findById(updateData.id);
        })
-       .then(task => {
-         task.text.should.equal(updateData.text);
+       .then(goal => {
+         goal.text.should.equal(updateData.text);
        });
    });
 
 
  describe('DELETE endpoint', function () {
 
-   it('should delete a task by id', function () {
+   it('should delete a goal by id', function () {
 
-     let task;
+     let goal;
 
-     return Tasks
+     return WeeklyGoal
        .findOne()
-       .then(_task => {
-         task = _task;
-         return chai.request(app).delete(`/tasks/${task.id}`);
+       .then(_goal => {
+         goal = _goal;
+         return chai.request(app).delete(`/weekly/${goal.id}`);
        })
        .then(res => {
          res.should.have.status(204);
-         return Tasks.findById(task.id);
+         return WeeklyGoal.findById(goal.id);
        })
-       .then(_task => {
-
-         should.not.exist(_task);
+       .then(_goal => {
+         should.not.exist(_goal);
        });
    });
  });

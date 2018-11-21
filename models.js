@@ -7,6 +7,7 @@ const taskSchema = mongoose.Schema({
   text: {type: String},
   created: {type: Date, default: Date.now},
   due: {type: Number, default: Date.now()},
+  completed: {type: Boolean, default: false},
 });
 
 
@@ -16,6 +17,7 @@ taskSchema.methods.serialize = function() {
     text: this.text,
     created: this.created,
     due: this.due,
+    completed: this.completed,
 
   };
 };
