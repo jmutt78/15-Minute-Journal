@@ -7,6 +7,7 @@ mongoose.Promise = global.Promise;
 const { DATABASE_URL, PORT } = require('./config');
 const taskRouter = require("./taskRouter");
 const weeeklyGoalRouter = require("./weeklyGoalRouter");
+const quarterlyGoalRouter = require("./quarterlyGoalRouter");
 const app = express();
 
 app.use(morgan("common"));
@@ -15,6 +16,7 @@ app.use(express.json());
 
 app.use("/tasks", taskRouter);
 app.use("/weekly", weeeklyGoalRouter);
+app.use("/quarterly", quarterlyGoalRouter);
 
 let server;
 

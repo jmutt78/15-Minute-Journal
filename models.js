@@ -36,8 +36,24 @@ weelyGoalSchema.methods.serialize = function() {
     completed: this.completed,
   };
 };
+const quarterlyGoalSchema = mongoose.Schema({
+  text: {type: String},
+  created: {type: Date, default: Date.now},
+  completed: {type: Boolean, default: false},
+});
 
+
+quarterlyGoalSchema.methods.serialize = function() {
+  return {
+    id: this._id,
+    text: this.text,
+    created: this.created,
+    completed: this.completed,
+  };
+};
+
+const QuarterlyGoal = mongoose.model('QuarterlyGoal', quarterlyGoalSchema);
 const WeeklyGoal = mongoose.model('WeeklyGoal', weelyGoalSchema);
 const Tasks = mongoose.model('Tasks', taskSchema);
 
-module.exports = {Tasks, WeeklyGoal};
+module.exports = {Tasks, WeeklyGoal, QuarterlyGoal};
