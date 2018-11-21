@@ -42,7 +42,7 @@ router.post('/', (req, res) => {
   .create({
     text: req.body.text
   })
-  .then(tasks => res.status(201).json(tasks.serialize()))
+  .then(goals => res.status(201).json(goals.serialize()))
   .catch(err => {
     console.error(err);
     res.status(500).json({ error: 'Something went wrong' });
@@ -70,7 +70,7 @@ router.put('/:id', (req, res) => {
   }
 
   const updated = {};
-const updateableFields = ['text', 'due'];
+const updateableFields = ['text', 'completed'];
 updateableFields.forEach(field => {
   if (field in req.body) {
     updated[field] = req.body[field];
@@ -79,7 +79,7 @@ updateableFields.forEach(field => {
 
 WeeklyGoal
   .findByIdAndUpdate(req.params.id, { $set: updated }, { new: true })
-  .then(updatedTask => res.status(204).end())
+  .then(updatedGoal => res.status(204).end())
   .catch(err => res.status(500).json({ message: 'Something went wrong' }));
 });
 
@@ -88,7 +88,7 @@ router.delete('/:id', (req, res) => {
 WeeklyGoal
   .findByIdAndRemove(req.params.id)
   .then(() => {
-    console.log(`Deleted task goal with id \`${req.params.id}\``);
+    console.log(`Deleted goal goal with id \`${req.params.id}\``);
     res.status(204).end();
   });
 });

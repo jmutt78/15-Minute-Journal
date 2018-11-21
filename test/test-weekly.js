@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 const should = chai.should();
 
 const {
-  Goals
+  WeeklyGoal
 } = require('../models');
 const {
   closeServer,
@@ -40,6 +40,7 @@ function seedGoalData() {
   for (let i = 1; i <= 10; i++) {
     seedData.push({
       text: faker.lorem.sentence(),
+      completed: true,
     });
   }
   // this will return a promise
@@ -101,7 +102,7 @@ describe('GET endpoint', function () {
 
          res.body.forEach(function (goal) {
            goal.should.be.a('object');
-           goal.should.include.keys('id', 'text', 'due', 'created');
+           goal.should.include.keys('id', 'text', 'created', 'completed');
          });
 
          resGoal = res.body[0];
@@ -109,7 +110,7 @@ describe('GET endpoint', function () {
        })
        .then(goal => {
          resGoal.text.should.equal(goal.text);
-         resGoal.due.should.equal(goal.due);
+         resGoal.completed.should.equal(goal.completed);
        });
    });
  });
@@ -125,22 +126,20 @@ describe('GET endpoint', function () {
      };
 
      return chai.request(app)
-       .post('/goals')
+       .post('/weekly')
        .send(newGoal)
        .then(function (res) {
          res.should.have.status(201);
          res.should.be.json;
          res.body.should.be.a('object');
          res.body.should.include.keys(
-           'id', 'text', 'due', 'created');
+           'id', 'text', 'created', 'completed');
          res.body.text.should.equal(newGoal.text);
          res.body.id.should.not.be.null;
-         res.body.due.should.equal(newGoal.due);
          return WeeklyGoal.findById(res.body.id);
        })
        .then(function (goal) {
          goal.text.should.equal(newGoal.text);
-         goal.due.should.equal(newGoal.due);
        });
    });
  });
@@ -150,7 +149,7 @@ describe('GET endpoint', function () {
    it('should update fields you send over', function () {
      const updateData = {
        text: faker.lorem.sentence(),
-       due: faker.date.future(1)
+       completed: true
        }
      });
 
@@ -165,10 +164,11 @@ describe('GET endpoint', function () {
        })
        .then(res => {
          res.should.have.status(204);
-         return TaWeeklyGoalsks.findById(updateData.id);
+         return WeeklyGoal.findById(updateData.id);
        })
        .then(goal => {
          goal.text.should.equal(updateData.text);
+         goal.completed.should.equal(updateData.completed);
        });
    });
 
@@ -190,6 +190,7 @@ describe('GET endpoint', function () {
          return WeeklyGoal.findById(goal.id);
        })
        .then(_goal => {
+
          should.not.exist(_goal);
        });
    });

@@ -18,10 +18,26 @@ taskSchema.methods.serialize = function() {
     created: this.created,
     due: this.due,
     completed: this.completed,
-
   };
 };
 
+const weelyGoalSchema = mongoose.Schema({
+  text: {type: String},
+  created: {type: Date, default: Date.now},
+  completed: {type: Boolean, default: false},
+});
+
+
+weelyGoalSchema.methods.serialize = function() {
+  return {
+    id: this._id,
+    text: this.text,
+    created: this.created,
+    completed: this.completed,
+  };
+};
+
+const WeeklyGoal = mongoose.model('WeeklyGoal', weelyGoalSchema);
 const Tasks = mongoose.model('Tasks', taskSchema);
 
-module.exports = {Tasks};
+module.exports = {Tasks, WeeklyGoal};
