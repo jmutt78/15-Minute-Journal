@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 const should = chai.should();
 
 const {
-  Journal
+  Daily
 } = require('../models');
 const {
   closeServer,
@@ -34,8 +34,8 @@ function tearDownDb() {
 
 
 //Seed the data
-function seedJournalData() {
-  console.info('seeding journal data');
+function seedDailyData() {
+  console.info('seeding daily data');
   const seedData = [];
   for (let i = 1; i <= 10; i++) {
     seedData.push({
@@ -46,18 +46,18 @@ function seedJournalData() {
     });
   }
   // this will return a promise
-  return Journal.insertMany(seedData);
+  return Daily.insertMany(seedData);
 }
 
 //Server
-describe('journal API resource', function() {
+describe('daily API resource', function() {
 
   before(function() {
     return runServer(TEST_DATABASE_URL);
   });
 
   beforeEach(function() {
-    return seedJournalData();
+    return seedDailyData();
   });
 
   afterEach(function() {
@@ -71,18 +71,18 @@ describe('journal API resource', function() {
 //Get Request Test
 describe('GET endpoint', function () {
 
-   it('should return all existing journal', function () {
+   it('should return all existing daily', function () {
 
      let res;
      return chai.request(app)
-       .get('/journal')
+       .get('/daily')
        .then(_res => {
          res = _res;
          res.should.have.status(200);
 
          res.body.should.have.lengthOf.at.least(1);
 
-         return Journal.count();
+         return Daily.count();
        })
        .then(count => {
 
@@ -90,11 +90,11 @@ describe('GET endpoint', function () {
        });
    });
 
-   it('should return journal with right fields', function () {
+   it('should return daily with right fields', function () {
 
-     let resJournal;
+     let resDaily;
      return chai.request(app)
-       .get('/journal')
+       .get('/daily')
        .then(function (res) {
 
          res.should.have.status(200);
@@ -102,18 +102,18 @@ describe('GET endpoint', function () {
          res.body.should.be.a('array');
          res.body.should.have.lengthOf.at.least(1);
 
-         res.body.forEach(function (journal) {
-           journal.should.be.a('object');
-           journal.should.include.keys('id', 'created', 'answer1', 'answer2', 'answer3');
+         res.body.forEach(function (daily) {
+           daily.should.be.a('object');
+           daily.should.include.keys('id', 'created', 'answer1', 'answer2', 'answer3');
          });
 
-         resJournal = res.body[0];
-         return Journal.findById(resJournal.id);
+         resDaily = res.body[0];
+         return Daily.findById(resDaily.id);
        })
-       .then(journal => {
-         resJournal.answer1.should.equal(journal.answer1);
-         resJournal.answer2.should.equal(journal.answer2);
-         resJournal.answer3.should.equal(journal.answer3);
+       .then(daily => {
+         resDaily.answer1.should.equal(daily.answer1);
+         resDaily.answer2.should.equal(daily.answer2);
+         resDaily.answer3.should.equal(daily.answer3);
        });
    });
  });
@@ -122,17 +122,17 @@ describe('GET endpoint', function () {
 //POST Test
  describe('POST endpoint', function () {
 
-   it('should add a new journal journal', function () {
+   it('should add a new daily daily', function () {
 
-     const newJournal = {
+     const newDaily = {
        answer1: faker.lorem.sentence(),
        answer2: faker.lorem.sentence(),
        answer3: faker.lorem.sentence()
      };
 
      return chai.request(app)
-       .post('/journal')
-       .send(newJournal)
+       .post('/daily')
+       .send(newDaily)
        .then(function (res) {
          res.should.have.status(201);
          res.should.be.json;
@@ -140,12 +140,12 @@ describe('GET endpoint', function () {
          res.body.should.include.keys(
            'id', 'created', 'answer1', 'answer2', 'answer3');
          res.body.id.should.not.be.null;
-         return Journal.findById(res.body.id);
+         return Daily.findById(res.body.id);
        })
-       .then(function (journal) {
-         journal.answer1.should.equal(newJournal.answer1);
-         journal.answer2.should.equal(newJournal.answer2);
-         journal.answer3.should.equal(newJournal.answer3);
+       .then(function (daily) {
+         daily.answer1.should.equal(newDaily.answer1);
+         daily.answer2.should.equal(newDaily.answer2);
+         daily.answer3.should.equal(newDaily.answer3);
        });
    });
  });
@@ -160,46 +160,46 @@ describe('GET endpoint', function () {
        }
      });
 
-     return Journal
+     return Daily
        .findOne()
-       .then(journal => {
-         updateData.id = journal.id;
+       .then(daily => {
+         updateData.id = daily.id;
 
          return chai.request(app)
-           .put(`/journal/${journal.id}`)
+           .put(`/daily/${daily.id}`)
            .send(updateData);
        })
        .then(res => {
          res.should.have.status(204);
-         return Journal.findById(updateData.id);
+         return Daily.findById(updateData.id);
        })
-       .then(journal => {
-         journal.answer1.should.equal(updateData.answer1);
-         journal.answer2.should.equal(updateData.answer2);
-         journal.answer3.should.equal(updateData.answer3);
+       .then(daily => {
+         daily.answer1.should.equal(updateData.answer1);
+         daily.answer2.should.equal(updateData.answer2);
+         daily.answer3.should.equal(updateData.answer3);
        });
    });
 
 
  describe('DELETE endpoint', function () {
 
-   it('should delete a journal by id', function () {
+   it('should delete a daily by id', function () {
 
-     let journal;
+     let daily;
 
-     return Journal
+     return Daily
        .findOne()
-       .then(_journal => {
-         journal = _journal;
-         return chai.request(app).delete(`/journal/${journal.id}`);
+       .then(_daily => {
+         daily = _daily;
+         return chai.request(app).delete(`/daily/${daily.id}`);
        })
        .then(res => {
          res.should.have.status(204);
-         return Journal.findById(journal.id);
+         return Daily.findById(daily.id);
        })
-       .then(_journal => {
+       .then(_daily => {
 
-         should.not.exist(_journal);
+         should.not.exist(_daily);
        });
    });
  });

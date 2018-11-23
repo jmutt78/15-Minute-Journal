@@ -69,7 +69,7 @@ stretchGoalSchema.methods.serialize = function() {
   };
 };
 //journal schema
-const journalSchema = mongoose.Schema({
+const dailySchema = mongoose.Schema({
     created: {type: Number, default: Date.now},
     answer1: {type: String},
     answer2: {type: String},
@@ -77,7 +77,7 @@ const journalSchema = mongoose.Schema({
 });
 
 
-journalSchema.methods.serialize = function() {
+dailySchema.methods.serialize = function() {
   return {
     id: this._id,
     created: this.created,
@@ -87,7 +87,7 @@ journalSchema.methods.serialize = function() {
   };
 };
 
-const Daily = mongoose.model('Daily', journalSchema);
+const Daily = mongoose.model('Daily', dailySchema);
 const StretchGoal = mongoose.model('StretchGoal', stretchGoalSchema);
 const QuarterlyGoal = mongoose.model('QuarterlyGoal', quarterlyGoalSchema);
 const WeeklyGoal = mongoose.model('WeeklyGoal', weelyGoalSchema);

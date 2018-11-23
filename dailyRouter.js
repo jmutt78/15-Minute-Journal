@@ -40,9 +40,11 @@ router.post('/', (req, res) => {
 
   Daily
   .create({
-    text: req.body.text
+    answer1: req.body.answer1,
+    answer2: req.body.answer2,
+    answer3: req.body.answer3
   })
-  .then(goals => res.status(201).json(goals.serialize()))
+  .then(daily => res.status(201).json(daily.serialize()))
   .catch(err => {
     console.error(err);
     res.status(500).json({ error: 'Something went wrong' });
@@ -79,7 +81,7 @@ updateableFields.forEach(field => {
 
 Daily
   .findByIdAndUpdate(req.params.id, { $set: updated }, { new: true })
-  .then(updatedGoal => res.status(204).end())
+  .then(updatedDaily => res.status(204).end())
   .catch(err => res.status(500).json({ message: 'Something went wrong' }));
 });
 
@@ -88,7 +90,7 @@ router.delete('/:id', (req, res) => {
 Daily
   .findByIdAndRemove(req.params.id)
   .then(() => {
-    console.log(`Deleted goal goal with id \`${req.params.id}\``);
+    console.log(`Deleted Daily with id \`${req.params.id}\``);
     res.status(204).end();
   });
 });
