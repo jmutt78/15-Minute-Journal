@@ -5,7 +5,7 @@ mongoose.Promise = global.Promise;
 //Task schema
 const taskSchema = mongoose.Schema({
   text: {type: String},
-  created: {type: Date, default: Date.now},
+  created: {type: Number, default: Date.now},
   due: {type: Number, default: Date.now()},
   completed: {type: Boolean, default: false},
 });
@@ -23,7 +23,7 @@ taskSchema.methods.serialize = function() {
 //weekly goal schema
 const weelyGoalSchema = mongoose.Schema({
   text: {type: String},
-  created: {type: Date, default: Date.now},
+  created: {type: Number, default: Date.now},
   completed: {type: Boolean, default: false},
 });
 
@@ -39,7 +39,7 @@ weelyGoalSchema.methods.serialize = function() {
 //quarterly goal schema
 const quarterlyGoalSchema = mongoose.Schema({
   text: {type: String},
-  created: {type: Date, default: Date.now},
+  created: {type: Number, default: Date.now},
   completed: {type: Boolean, default: false},
 });
 
@@ -55,7 +55,7 @@ quarterlyGoalSchema.methods.serialize = function() {
 //stretch goal schema
 const stretchGoalSchema = mongoose.Schema({
   text: {type: String},
-  created: {type: Date, default: Date.now},
+  created: {type: Number, default: Date.now},
   completed: {type: Boolean, default: false},
 });
 
@@ -68,10 +68,29 @@ stretchGoalSchema.methods.serialize = function() {
     completed: this.completed,
   };
 };
+//journal schema
+const dailySchema = mongoose.Schema({
+    created: {type: Number, default: Date.now},
+    answer1: {type: String},
+    answer2: {type: String},
+    answer3: {type: String},
+});
 
+
+dailySchema.methods.serialize = function() {
+  return {
+    id: this._id,
+    created: this.created,
+    answer1: this.answer1,
+    answer2: this.answer2,
+    answer3: this.answer3,
+  };
+};
+
+const Daily = mongoose.model('Daily', dailySchema);
 const StretchGoal = mongoose.model('StretchGoal', stretchGoalSchema);
 const QuarterlyGoal = mongoose.model('QuarterlyGoal', quarterlyGoalSchema);
 const WeeklyGoal = mongoose.model('WeeklyGoal', weelyGoalSchema);
 const Tasks = mongoose.model('Tasks', taskSchema);
 
-module.exports = {Tasks, WeeklyGoal, QuarterlyGoal, StretchGoal};
+module.exports = {Tasks, WeeklyGoal, QuarterlyGoal, StretchGoal, Daily};

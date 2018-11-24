@@ -9,6 +9,7 @@ const taskRouter = require("./taskRouter");
 const weeeklyGoalRouter = require("./weeklyGoalRouter");
 const quarterlyGoalRouter = require("./quarterlyGoalRouter");
 const stretchGoalRouter = require("./stretchGoalRouter");
+const dailyRouter = require("./dailyRouter");
 const app = express();
 
 app.use(morgan("common"));
@@ -19,6 +20,7 @@ app.use("/tasks", taskRouter);
 app.use("/weekly", weeeklyGoalRouter);
 app.use("/quarterly", quarterlyGoalRouter);
 app.use("/stretch", stretchGoalRouter);
+app.use("/daily", dailyRouter);
 
 let server;
 
