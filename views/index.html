@@ -1,10 +1,147 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Hello World</title>
-  </head>
-  <body>
-<p>hello worlsd</p>
-  </body>
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>15 Minute Daily Journal</title>
+  <!-- Bootstrap core CSS -->
+  <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="../public/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+  <!-- Header -->
+  <header role="header">
+    <div class="topnav">
+      <a c id='goals-nav' href="#goals">Goals</a>
+      <a id='tasks-nav' href="#tasks">Tasks</a>
+      <a id='daily-nav' href="#daily">Daily</a>
+    </div>
+  </header>
+  <!-- Main -->
+  <main role="main" class="container">
+    <!-- Title -->
+    <h1>15 Minute Daily Journal</h1>
+    <!-- Landing Page -->
+    <section class="landing-page">
+      <p>Welcome to the 15 Minute Journal! Please sign up or log in below</p>
+      <form class="task-form">
+        <div class="container">
+          <label for="uname"><b>Username</b></label>
+          <input type="text" placeholder="Enter Username" name="uname" required>
+
+          <label for="psw"><b>Password</b></label>
+          <input type="password" placeholder="Enter Password" name="psw" required>
+
+          <button type="submit">Login</button>
+          <label>
+            <input type="checkbox" checked="checked" name="remember"> Remember me
+          </label>
+        </div>
+
+        <div class="container" style="background-color:#f1f1f1">
+          <button type="button" class="cancelbtn">Cancel</button>
+        </div>
+      </form>
+    </section>
+
+
+    <!-- Goal Page -->
+    <section class="goals-page">
+      <h2>Goals</h2>
+      <!-- Stretch Goal -->
+      <h3>Stretch Goal</h3>
+      <form class="stretch-form">
+        <label class="form-stretch" for="inputDefault"></label>
+        <input type="text" class="form-quarterly" placeholder="Enter Your Stretch Goal" id="stretch-input" required>
+        <button class="stretch-button" type="submit">Go!</button>
+      </form>
+      <div class="stretch-goal-display" id= 'hidden'>
+        <h3>stretch goal placeholder</h3>
+      </div>
+      <!-- Quarterly Goal -->
+      <h3>Quarterly Goal</h3>
+      <form class="quarterly-form">
+        <label class="form-quarterly" for="inputDefault"></label>
+        <input type="text" class="form-quarterly" placeholder="Enter Your Quarterly Goal" id="quarterly-input" required>
+        <button class="quarterly-button" type="submit">Go!</button>
+      </form>
+      <div class="quarterly-goal-display" id= 'hidden'>
+        <h3>quarterly goal placeholder</h3>
+      </div>
+      <!-- Weekly Goal -->
+      <h3>Weekly Goal</h3>
+      <form class="weekly-form">
+        <label class="form-weekly" for="inputDefault"></label>
+        <input type="text" class="form-weekly" placeholder="Enter Your Weekly Goal" id="weekly-input" required>
+        <button class="weekly-button" type="submit">Go!</button>
+      </form>
+      <div class="weekly-goal-display" id= 'hidden'>
+        <h3>weekly goal placeholder</h3>
+      </div>
+    </section>
+    <!-- Tasks Page -->
+    <section class="task-page">
+      <h2>Tasks</h2>
+      <form class="task-form">
+        <label class="form-task" for="inputDefault"></label>
+        <input type="text" class="form-task" placeholder="Enter Your Daily Tasks" id="task-input" required>
+        <button class="task-button" type="submit">Go!</button>
+      </form>
+      <div class="task-goal-display" id= 'hidden'>
+        <ul id="goal-ul">
+          <li>Hit the gym</li>
+          <li>Pay bills</li>
+          <li>Meet George</li>
+          <li>Buy eggs</li>
+          <li>Read a book</li>
+          <li>Organize office</li>
+        </ul>
+      </div>
+    </section>
+      <!-- Daily Page -->
+      <section class="daily-page">
+        <h2>Daily Jounral</h2>
+        <!-- 3 things they are thankful for -->
+        <h3>Write 3 things they are thankful for</h3>
+        <form class="thankful-form">
+          <label class="form-thankful" for="inputDefault"></label>
+          <textarea rows="5" cols="33" required>
+          </textarea>
+          <button class="thankful-button" type="submit">Go!</button>
+        </form>
+        <!-- 3 things that will make today great -->
+        <h3>Write 3 things that will make today great</h3>
+        <form class="great-form">
+          <label class="form-great" for="inputDefault"></label>
+          <textarea rows="5" cols="33" required>
+          </textarea>
+          <button class="great-button" type="submit">Go!</button>
+        </form>
+        <!-- Daily affirmation  -->
+        <h3>Write your daily affirmation</h3>
+        <form class="affirmation-form">
+          <label class="form-affirmation" for="inputDefault"></label>
+          <textarea rows="5" cols="33" required>
+          </textarea>
+          <button class="affirmation-button" type="submit">Go!</button>
+        </form>
+        <div class="daily-display" id= 'hidden'>
+          <h3>Daily Jounral Placeholder</h3>
+        </div>
+      </section>
+  </main>
+
+  <!--  JavaScript
+    ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+  <script src="../public/main.js" charset="utf-8"></script>
+</body>
+
 </html>
