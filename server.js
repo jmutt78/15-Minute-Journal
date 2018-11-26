@@ -11,11 +11,12 @@ const quarterlyGoalRouter = require("./quarterlyGoalRouter");
 const stretchGoalRouter = require("./stretchGoalRouter");
 const dailyRouter = require("./dailyRouter");
 const app = express();
+const cors = require('cors')
 
 app.use(morgan("common"));
 app.use(express.json());
 
-
+app.use(cors());
 app.use("/tasks", taskRouter);
 app.use("/weekly", weeeklyGoalRouter);
 app.use("/quarterly", quarterlyGoalRouter);
