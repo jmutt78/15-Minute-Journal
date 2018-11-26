@@ -11,7 +11,7 @@ const quarterlyGoalRouter = require("./quarterlyGoalRouter");
 const stretchGoalRouter = require("./stretchGoalRouter");
 const dailyRouter = require("./dailyRouter");
 const app = express();
-const cors = require('cors')
+const cors = require('cors');
 
 app.use(morgan("common"));
 app.use(express.json());
