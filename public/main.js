@@ -63,21 +63,36 @@ function getGoalsData() {
       }
 
     });
+
+    const weeklyGoalUrl = 'https://obscure-ocean-89688.herokuapp.com/weekly'
+    $.ajax({
+      type: 'GET',
+      url: weeklyGoalUrl,
+      datatype: 'jsonp',
+      error: function() {
+        $('.info').html('<p>An error has occurred</p>');
+      },
+      success: function(weeklyData) {
+        console.log('success', weeklyData);
+        fetchWeeklyResults(weeklyData);
+      }
+
+    });
   });
 }
-//Checks to see if thier is an object and if there is if its completed
+//Stretch goal display
 function fetchStretchResults(stretchData) {
   for (var i = 0; i < stretchData.length; i++) {
     if (Object.keys(stretchData).length === 0) {
-      console.log("no object");
+      $('.stretch-edit-button').hide();
+      $('.stretch-delete-button').hide();
+      $('.stretch-complete-button').hide();
 
     } else {
-
-      console.log(stretchData[i].text);
-      $('.stretch-form').hide();
-      $('.stretch-goal-display').removeAttr("stlye");
-      $('.stretch-goal-display').append(
-        `<h3>${stretchData[i].text}</h3>`
+      $('.stretch-go-button').hide();
+      $('.text-stretch').attr('readonly', 'readonly');
+      $('.text-stretch').append(
+        `${stretchData[i].text}`
       )
     }
   }
@@ -86,25 +101,36 @@ function fetchStretchResults(stretchData) {
 function fetchQuarterlyResults(quarterlyData) {
   for (var i = 0; i < quarterlyData.length; i++) {
     if (Object.keys(quarterlyData).length === 0) {
-      console.log("no object");
-
+      $('.quarterly-edit-button').hide();
+      $('.quarterly-delete-button').hide();
+      $('.quarterly-complete-button').hide();
     } else {
-
-      console.log(quarterlyData[i].text);
-      $('.quarterly-form').hide();
-      $('.quarterly-goal-display').removeAttr("stlye");
-      $('.quarterly-goal-display').append(
-        `<h3>${quarterlyData[i].text}</h3>`
+      $('.quarterly-go-button').hide();
+      $('.text-quarterly').attr('readonly', 'readonly');
+      $('.text-quarterly').append(
+        `${quarterlyData[i].text}`
       )
     }
   }
 }
 
-//display anyy goals that are active
-function displayActiveGoals() {
-
-
+//Weekly Goal Display
+function fetchWeeklyResults(weeklyData) {
+  for (var i = 0; i < weeklyData.length; i++) {
+    if (Object.keys(weeklyData).length === 0) {
+      $('.weekly-edit-button').hide();
+      $('.weekly-delete-button').hide();
+      $('.weekly-complete-button').hide();
+    } else {
+      $('.weekly-go-button').hide();
+      $('.text-weekly').attr('readonly', 'readonly');
+      $('.text-weekly').append(
+        `${weeklyData[i].text}`
+      )
+    }
+  }
 }
+
 
 //display goal forms if no object exists
 function displayGoalForms() {
