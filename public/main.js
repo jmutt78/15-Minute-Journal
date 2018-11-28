@@ -20,7 +20,7 @@ function handleNavBar() {
     $('.goals-page').hide();
     $('.daily-page').hide();
   });
-//daily nav link
+  //daily nav link
   $('#daily-nav').click(function() {
     $('.daily-page').show();
     $('.landing-page').hide();
@@ -32,68 +32,112 @@ function handleNavBar() {
 //***************CORE FUNCTIONS**************
 //-------------Goals-------------------//
 //get request to the api
-function getGoalsData(){
-$('#goals-nav').click(function() {
-const stretchGoalUrl = 'https://obscure-ocean-89688.herokuapp.com/stretch'
-$.ajax({
-  type: 'GET',
-  url: stretchGoalUrl,
-  datatype: 'jsonp',
-  success: function (data){
-    console.log('success', data);
-  }
+function getGoalsData() {
+  $('#goals-nav').click(function() {
+    const stretchGoalUrl = 'https://obscure-ocean-89688.herokuapp.com/stretch'
+    $.ajax({
+      type: 'GET',
+      url: stretchGoalUrl,
+      datatype: 'jsonp',
+      error: function() {
+        $('.info').html('<p>An error has occurred</p>');
+      },
+      success: function(stretchData) {
+        console.log('success', stretchData);
+        fetchStretchResults(stretchData);
+      }
 
-});
+    });
+    //quarter goal Ajax
+    const quarterlyGoalUrl = 'https://obscure-ocean-89688.herokuapp.com/quarterly'
+    $.ajax({
+      type: 'GET',
+      url: quarterlyGoalUrl,
+      datatype: 'jsonp',
+      error: function() {
+        $('.info').html('<p>An error has occurred</p>');
+      },
+      success: function(quarterlyData) {
+        console.log('success', quarterlyData);
+        fetchQuarterlyResults(quarterlyData);
+      }
 
-});
+    });
+  });
 }
-
-
 //Checks to see if thier is an object and if there is if its completed
-function fetchResults(){
+function fetchStretchResults(stretchData) {
+  for (var i = 0; i < stretchData.length; i++) {
+    if (Object.keys(stretchData).length === 0) {
+      console.log("no object");
 
+    } else {
 
+      console.log(stretchData[i].text);
+      $('.stretch-form').hide();
+      $('.stretch-goal-display').removeAttr("stlye");
+      $('.stretch-goal-display').append(
+        `<h3>${stretchData[i].text}</h3>`
+      )
+    }
+  }
+}
+//Quarterly Goal Display
+function fetchQuarterlyResults(quarterlyData) {
+  for (var i = 0; i < quarterlyData.length; i++) {
+    if (Object.keys(quarterlyData).length === 0) {
+      console.log("no object");
 
+    } else {
+
+      console.log(quarterlyData[i].text);
+      $('.quarterly-form').hide();
+      $('.quarterly-goal-display').removeAttr("stlye");
+      $('.quarterly-goal-display').append(
+        `<h3>${quarterlyData[i].text}</h3>`
+      )
+    }
+  }
 }
 
 //display anyy goals that are active
-function displayActiveGoals(){
+function displayActiveGoals() {
 
 
 }
 
 //display goal forms if no object exists
-function displayGoalForms(){
+function displayGoalForms() {
 
 
 }
 // takes info form user and makes a post
-function pushGoalForm(){
+function pushGoalForm() {
 
 
 }
 
 //delete goals
-function deleteGoals(){
+function deleteGoals() {
 
 
 }
 
 //complete goals
-function completeGoals(){
+function completeGoals() {
 
 
 }
 
 //update Goals
 
-function updateGoals(){
+function updateGoals() {
 
 
 }
 
 //handle Goals
-function handleGoals(){
+function handleGoals() {
 
 
 }
