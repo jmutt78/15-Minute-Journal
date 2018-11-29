@@ -38,13 +38,14 @@ function getGoalsData() {
     $.ajax({
       type: 'GET',
       url: stretchGoalUrl,
-      datatype: 'jsonp',
+      datatype: 'json',
       error: function() {
         $('.info').html('<p>An error has occurred</p>');
       },
       success: function(stretchData) {
         console.log('success', stretchData);
         fetchStretchResults(stretchData);
+        editStretchGoals(stretchData);
       }
 
     });
@@ -91,7 +92,7 @@ function fetchStretchResults(stretchData) {
     } else {
       $('.stretch-go-button').hide();
       $('.text-stretch').attr('readonly', 'readonly');
-      $('.text-stretch').append(
+      $('.text-stretch').html(
         `${stretchData[i].text}`
       )
     }
@@ -107,7 +108,7 @@ function fetchQuarterlyResults(quarterlyData) {
     } else {
       $('.quarterly-go-button').hide();
       $('.text-quarterly').attr('readonly', 'readonly');
-      $('.text-quarterly').append(
+      $('.text-quarterly').html(
         `${quarterlyData[i].text}`
       )
     }
@@ -124,7 +125,7 @@ function fetchWeeklyResults(weeklyData) {
     } else {
       $('.weekly-go-button').hide();
       $('.text-weekly').attr('readonly', 'readonly');
-      $('.text-weekly').append(
+      $('.text-weekly').html(
         `${weeklyData[i].text}`
       )
     }
@@ -132,16 +133,57 @@ function fetchWeeklyResults(weeklyData) {
 }
 
 
-//display goal forms if no object exists
-function displayGoalForms() {
+//edit the goals
+function editStretchGoals(stretchData) {
+$('.stretch-edit-button').click(function() {
+$('.text-stretch').removeAttr('readonly', 'readonly');
+$('.stretch-go-button').show();
+$('.stretch-delete-button').hide();
+$('.stretch-complete-button').hide();
+$('.stretch-go-button').click(function() {
+  for (var i = 0; i < stretchData.length; i++) {
+    console.log(stretchData[i].id);
+
+
+  $('.stretch-go-button').hide();
+  $('.stretch-delete-button').show();
+  $('.stretch-complete-button').show();
+  $('.text-stretch').attr('readonly', 'readonly');
+    let newGoal = $('.text-stretch').val();
+    console.log(newGoal);
+
+    $.ajax({
+      type: 'PUT',
+      url: `'https://obscure-ocean-89688.herokuapp.com/stretch' + ${stretchData[i].id}`,
+      datatype: 'jsonp',
+      error: function() {
+        $('.info').html('<p>An error has occurred</p>');
+      },
+      success: function(stretchData) {
+        console.log('success', stretchData);
+
+      }
+
+    });
+
+  }
+  });
+});
+}
+
+function editQuarterlyGoals() {
 
 
 }
-// takes info form user and makes a post
-function pushGoalForm() {
+
+function editWeeklyGoals() {
 
 
 }
+
+
+
+
 
 //delete goals
 function deleteGoals() {
@@ -155,12 +197,9 @@ function completeGoals() {
 
 }
 
-//update Goals
-
-function updateGoals() {
 
 
-}
+
 
 //handle Goals
 function handleGoals() {
