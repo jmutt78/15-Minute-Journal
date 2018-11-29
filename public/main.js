@@ -27,6 +27,11 @@ function handleNavBar() {
     $('.goals-page').hide();
     $('.task-page').hide();
   });
+//DatePicker UI funciton
+  $( function() {
+  $( "#datepicker" ).datepicker();
+  $("#datepicker").datepicker("setDate", new Date());
+});
 }
 
 //***************CORE FUNCTIONS**************
@@ -155,7 +160,7 @@ $('.stretch-go-button').click(function() {
     $.ajax({
       type: 'PUT',
       url: `'https://obscure-ocean-89688.herokuapp.com/stretch' + ${stretchData[i].id}`,
-      datatype: 'jsonp',
+      datatype: 'json',
       error: function() {
         $('.info').html('<p>An error has occurred</p>');
       },

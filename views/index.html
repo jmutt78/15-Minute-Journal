@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>15 Minute Daily Journal</title>
   <!-- Bootstrap core CSS -->
-  <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+  <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
   <!-- Custom styles for this template -->
   <link href="../public/style.css" rel="stylesheet">
 
@@ -28,7 +28,7 @@
     <!-- Landing Page -->
     <section class="landing-page">
       <p>Welcome to the 15 Minute Journal! Please sign up or log in below</p>
-      <form class="task-form">
+      <form class="user-form">
         <div class="container">
           <label for="uname"><b>Username</b></label>
           <input type="text" placeholder="Enter Username" name="uname" required>
@@ -55,7 +55,7 @@
       <!-- Stretch Goal -->
       <h3>Stretch Goal</h3>
       <div class="stretch-text">
-        <textarea class="text-stretch">
+        <textarea class="text-stretch" rows="1" cols="50">
         </textarea>
       </div>
       <div class="stretch-buttons">
@@ -67,7 +67,7 @@
       <!-- Quarterly Goal -->
       <h3>Quarterly Goal</h3>
       <div class="quarterly-text">
-        <textarea class="text-quarterly">
+        <textarea class="text-quarterly" rows="1" cols="50">
         </textarea>
       </div>
       <div class="quarterly-buttons">
@@ -79,7 +79,7 @@
       <!-- Weekly Goal -->
       <h3>Weekly Goal</h3>
       <div class="weekly-text">
-        <textarea class="text-weekly">
+        <textarea class="text-weekly" rows="1" cols="50">
         </textarea>
       </div>
       <div class="weekly-buttons">
@@ -92,25 +92,22 @@
     <!-- Tasks Page -->
     <section class="task-page">
       <h2>Tasks</h2>
-      <form class="task-form">
-        <label class="form-task" for="inputDefault"></label>
-        <input type="text" class="form-task" placeholder="Enter Your Daily Tasks" id="task-input" required>
-        <button class="task-button" type="submit">Go!</button>
-      </form>
-      <div class="task-goal-display" id='hidden'>
-        <ul id="goal-ul">
-          <li>Hit the gym</li>
-          <li>Pay bills</li>
-          <li>Meet George</li>
-          <li>Buy eggs</li>
-          <li>Read a book</li>
-          <li>Organize office</li>
-        </ul>
-      </div>
+      <textarea class="text-task" rows="1" cols="50">
+      </textarea>
+    </div>
+    <div class="task-buttons">
+      <button class="task-go-button" type="submit">Go!</button>
+      <button class="task-edit-button" type="submit">Edit</button>
+      <button class="task-delete-button" type="submit">Delete</button>
+      <button class="task-complete-button" type="submit">Complete</button>
+    </div>
     </section>
     <!-- Daily Page -->
     <section class="daily-page">
       <h2>Daily Jounral</h2>
+      <div class="date-picker-ui">
+              <p>Date: <input type="text" id="datepicker"></p>
+      </div>
       <!-- 3 things they are thankful for -->
       <h3>Write 3 things they are thankful for</h3>
       <form class="thankful-form">
