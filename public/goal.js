@@ -1,8 +1,8 @@
 'use strict';
-const GOAL_API_ROOT_URL = 'https://obscure-ocean-89688.herokuapp.com/';
-const API_URL_STRETCH_GOAL = GOAL_API_ROOT_URL + 'stretch';
-const API_URL_QUARTERLY_GOAL = GOAL_API_ROOT_URL + 'quarterly';
-const API_URL_WEEKLY_GOAL = GOAL_API_ROOT_URL + 'weekly';
+
+const stretchApi = 'https://obscure-ocean-89688.herokuapp.com/stretch';
+const quarterlyApi = 'https://obscure-ocean-89688.herokuapp.com/quarterly';
+const weeklyApi = 'https://obscure-ocean-89688.herokuapp.com/weekly';
 
 
 $(document).ready(function() {
@@ -31,23 +31,27 @@ function handleNavBar() {
     $('.goals-page').hide();
     $('.task-page').hide();
   });
-//DatePicker UI funciton
-  $( function() {
-  $( "#datepicker" ).datepicker();
-  $("#datepicker").datepicker("setDate", new Date());
-});
+  //DatePicker UI funciton
+  $(function() {
+    $("#datepicker").datepicker();
+    $("#datepicker").datepicker("setDate", new Date());
+  });
 }
 
 //***************CORE FUNCTIONS**************
 //-------------Goals-------------------//
 //get request to the api
-function getGoalsData(API_URL_STRETCH_GOAL, API_URL_QUARTERLY_GOAL, API_URL_WEEKLY_GOAL ) {
+function getGoalsData() {
+  let stretchGoalUrl = stretchApi;
+  let quarterlyGoalUrl = quarterlyApi;
+  let weeklyGoalUrl = weeklyApi;
   $('#goals-nav').click(function() {
-    const stretchGoalUrl = API_URL_STRETCH_GOAL;
+
+
     $.ajax({
       type: 'GET',
       url: stretchGoalUrl,
-      datatype: 'json',
+      datatype: 'jsonp',
       error: function() {
         $('.info').html('<p>An error has occurred</p>');
       },
@@ -59,7 +63,7 @@ function getGoalsData(API_URL_STRETCH_GOAL, API_URL_QUARTERLY_GOAL, API_URL_WEEK
 
     });
     //quarter goal Ajax
-    const quarterlyGoalUrl = API_URL_QUARTERLY_GOAL;
+
     $.ajax({
       type: 'GET',
       url: quarterlyGoalUrl,
@@ -74,7 +78,7 @@ function getGoalsData(API_URL_STRETCH_GOAL, API_URL_QUARTERLY_GOAL, API_URL_WEEK
 
     });
 
-    const weeklyGoalUrl = API_URL_WEEKLY_GOAL;
+
     $.ajax({
       type: 'GET',
       url: weeklyGoalUrl,
@@ -143,41 +147,47 @@ function fetchWeeklyResults(weeklyData) {
 
 
 //edit the goals
-function editStretchGoals(stretchData, API_URL_STRETCH_GOAL) {
-$('.stretch-edit-button').click(function() {
-$('.text-stretch').removeAttr('readonly', 'readonly');
-$('.stretch-go-button').show();
-$('.stretch-delete-button').hide();
-$('.stretch-complete-button').hide();
-$('.stretch-go-button').click(function() {
-  for (var i = 0; i < stretchData.length; i++) {
-    console.log(stretchData[i].id);
+function editStretchGoals(stretchData) {
+  $('.stretch-edit-button').click(function() {
+    $('.text-stretch').removeAttr('readonly', 'readonly');
+    $('.stretch-go-button').show();
+    $('.stretch-delete-button').hide();
+    $('.stretch-complete-button').hide();
+    $('.stretch-go-button').click(function() {
+      for (var i = 0; i < stretchData.length; i++) {
+        console.log(stretchData[i].id);
 
 
-  $('.stretch-go-button').hide();
-  $('.stretch-delete-button').show();
-  $('.stretch-complete-button').show();
-  $('.text-stretch').attr('readonly', 'readonly');
-    let newGoal = $('.text-stretch').val();
-    console.log(`${stretchData[i].id} + ${stretchData[i].id}`);
-    let stretchUrl = API_URL_STRETCH_GOAL;
-    $.ajax({
-      type: 'PUT',
-      url: `${stretchData[i].id} + ${stretchData[i].id}`,
-      datatype: 'json',
-      error: function() {
-        $('.info').html('<p>An error has occurred</p>');
-      },
-      success: function(stretchData) {
-        console.log('success', stretchData);
+        $('.stretch-go-button').hide();
+        $('.stretch-delete-button').show();
+        $('.stretch-complete-button').show();
+        $('.text-stretch').attr('readonly', 'readonly');
+        let newGoal = $('.text-stretch').val();
+        console.log(`${stretchApi}/${stretchData[i].id}`);
+        let stretchUrl = stretchApi;
+        console.log(newGoal);
+        $.ajax({
+          method: 'PUT',
+          url: `${stretchApi}/${stretchData[i].id}`,
+          contentType : "application/json",
+          data: {
+            "text": "This app will be the best thing ever",
+            "completed": false
+          },
+
+          error: function() {
+            $('.info').html('<p>An error has occurred</p>');
+          },
+          success: function(stretchData) {
+            console.log('success', stretchData);
+
+          }
+
+        });
 
       }
-
     });
-
-  }
   });
-});
 }
 
 function editQuarterlyGoals() {
