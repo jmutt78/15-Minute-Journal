@@ -1,4 +1,8 @@
 'use strict';
+const GOAL_API_ROOT_URL = 'https://obscure-ocean-89688.herokuapp.com/';
+const API_URL_STRETCH_GOAL = GOAL_API_ROOT_URL + 'stretch';
+const API_URL_QUARTERLY_GOAL = GOAL_API_ROOT_URL + 'quarterly';
+const API_URL_WEEKLY_GOAL = GOAL_API_ROOT_URL + 'weekly';
 
 
 $(document).ready(function() {
@@ -37,9 +41,9 @@ function handleNavBar() {
 //***************CORE FUNCTIONS**************
 //-------------Goals-------------------//
 //get request to the api
-function getGoalsData() {
+function getGoalsData(API_URL_STRETCH_GOAL, API_URL_QUARTERLY_GOAL, API_URL_WEEKLY_GOAL ) {
   $('#goals-nav').click(function() {
-    const stretchGoalUrl = 'https://obscure-ocean-89688.herokuapp.com/stretch'
+    const stretchGoalUrl = API_URL_STRETCH_GOAL;
     $.ajax({
       type: 'GET',
       url: stretchGoalUrl,
@@ -55,7 +59,7 @@ function getGoalsData() {
 
     });
     //quarter goal Ajax
-    const quarterlyGoalUrl = 'https://obscure-ocean-89688.herokuapp.com/quarterly'
+    const quarterlyGoalUrl = API_URL_QUARTERLY_GOAL;
     $.ajax({
       type: 'GET',
       url: quarterlyGoalUrl,
@@ -70,7 +74,7 @@ function getGoalsData() {
 
     });
 
-    const weeklyGoalUrl = 'https://obscure-ocean-89688.herokuapp.com/weekly'
+    const weeklyGoalUrl = API_URL_WEEKLY_GOAL;
     $.ajax({
       type: 'GET',
       url: weeklyGoalUrl,
@@ -139,7 +143,7 @@ function fetchWeeklyResults(weeklyData) {
 
 
 //edit the goals
-function editStretchGoals(stretchData) {
+function editStretchGoals(stretchData, API_URL_STRETCH_GOAL) {
 $('.stretch-edit-button').click(function() {
 $('.text-stretch').removeAttr('readonly', 'readonly');
 $('.stretch-go-button').show();
@@ -155,11 +159,11 @@ $('.stretch-go-button').click(function() {
   $('.stretch-complete-button').show();
   $('.text-stretch').attr('readonly', 'readonly');
     let newGoal = $('.text-stretch').val();
-    console.log(newGoal);
-
+    console.log(`${stretchData[i].id} + ${stretchData[i].id}`);
+    let stretchUrl = API_URL_STRETCH_GOAL;
     $.ajax({
       type: 'PUT',
-      url: `'https://obscure-ocean-89688.herokuapp.com/stretch' + ${stretchData[i].id}`,
+      url: `${stretchData[i].id} + ${stretchData[i].id}`,
       datatype: 'json',
       error: function() {
         $('.info').html('<p>An error has occurred</p>');
@@ -205,29 +209,8 @@ function completeGoals() {
 
 
 
-
-//handle Goals
-function handleGoals() {
-
-
-}
-
-
-//-------------Tasks-------------------//
-
-
-
-
-
-
-//-------------Daily-------------------//
-
-
-
-
-
 //handle the journal
-function handleJournal() {
+function handleGoal() {
   $('.goals-page').hide();
   $('.task-page').hide();
   $('.daily-page').hide();
@@ -236,4 +219,4 @@ function handleJournal() {
 }
 
 
-$(handleJournal);
+$(handleGoal);
