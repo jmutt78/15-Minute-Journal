@@ -169,12 +169,20 @@ function editStretchGoals(stretchData) {
         $.ajax({
           method: 'PUT',
           url: `${stretchApi}/${stretchData[i].id}`,
-          contentType : "application/json",
+          async: true,
+          crossDomain: true,
+          headers: {
+            contentType: "application/json",
+            cacheControl: "no-cache",
+          },
+          processData: false,
+          datatype: 'jsonp',
           data: {
-            "text": "This app will be the best thing ever",
+            "id": "5bf8b06750ae3f00165c3da2",
+            "text": "This dsapp will be the best thing ever",
+            "created": 1543024743839,
             "completed": false
           },
-
           error: function() {
             $('.info').html('<p>An error has occurred</p>');
           },
@@ -185,6 +193,24 @@ function editStretchGoals(stretchData) {
 
         });
 
+        //Postman Call works 
+        var settings = {
+          "async": true,
+          "crossDomain": true,
+          "url": "https://obscure-ocean-89688.herokuapp.com/stretch/5bf8b06750ae3f00165c3da2",
+          "method": "PUT",
+          "headers": {
+            "Content-Type": "application/json",
+            "cache-control": "no-cache",
+            "Postman-Token": "35ed830e-06b8-4718-b6de-7fda3b25282b"
+          },
+          "processData": false,
+          "data": "    {\n        \"id\": \"5bf8b06750ae3f00165c3da2\",\n        \"text\": \"This dsapp will be the best thing ever\",\n        \"created\": 1543024743839,\n        \"completed\": false\n    }"
+        }
+
+        $.ajax(settings).done(function(response) {
+          console.log(response);
+        });
       }
     });
   });
