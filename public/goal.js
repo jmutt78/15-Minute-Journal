@@ -16,38 +16,29 @@ function handleNavBar() {
     $('.landing-page').hide();
     $('.task-page').hide();
     $('.daily-page').hide();
+    getGoalsData();
   });
-  //tasks nav link
-  $('#tasks-nav').click(function() {
-    $('.task-page').show();
-    $('.landing-page').hide();
-    $('.goals-page').hide();
-    $('.daily-page').hide();
-  });
-  //daily nav link
-  $('#daily-nav').click(function() {
-    $('.daily-page').show();
-    $('.landing-page').hide();
-    $('.goals-page').hide();
-    $('.task-page').hide();
-  });
-  //DatePicker UI funciton
-  $(function() {
-    $("#datepicker").datepicker();
-    $("#datepicker").datepicker("setDate", new Date());
-  });
+
 }
 
 //***************CORE FUNCTIONS**************
-//-------------Goals-------------------//
-//get request to the api
+//-------------Get requests-------------------//
 function getGoalsData() {
   let stretchGoalUrl = stretchApi;
   let quarterlyGoalUrl = quarterlyApi;
   let weeklyGoalUrl = weeklyApi;
   $('#goals-nav').click(function() {
-
-
+//hide show to start the page
+    $('.stretch-edit-button').hide();
+    $('.stretch-delete-button').hide();
+    $('.stretch-complete-button').hide();
+    $('.quarterly-edit-button').hide();
+    $('.quarterly-delete-button').hide();
+    $('.quarterly-complete-button').hide();
+    $('.weekly-edit-button').hide();
+    $('.weekly-delete-button').hide();
+    $('.weekly-complete-button').hide();
+//ajax get request for stretch goals
     $.ajax({
       type: 'GET',
       url: stretchGoalUrl,
@@ -59,11 +50,12 @@ function getGoalsData() {
         console.log('success', stretchData);
         fetchStretchResults(stretchData);
         editStretchGoals(stretchData);
+        deleteStretchGoals(stretchData);
+
       }
 
     });
     //quarter goal Ajax
-
     $.ajax({
       type: 'GET',
       url: quarterlyGoalUrl,
@@ -74,11 +66,9 @@ function getGoalsData() {
       success: function(quarterlyData) {
         console.log('success', quarterlyData);
         fetchQuarterlyResults(quarterlyData);
+        deleteQuarterlyGoals(quarterlyData);
       }
-
     });
-
-
     $.ajax({
       type: 'GET',
       url: weeklyGoalUrl,
@@ -89,6 +79,7 @@ function getGoalsData() {
       success: function(weeklyData) {
         console.log('success', weeklyData);
         fetchWeeklyResults(weeklyData);
+        deleteQuarterlyGoals(weeklyData);
       }
 
     });
@@ -98,12 +89,13 @@ function getGoalsData() {
 function fetchStretchResults(stretchData) {
   for (var i = 0; i < stretchData.length; i++) {
     if (Object.keys(stretchData).length === 0) {
-      $('.stretch-edit-button').hide();
-      $('.stretch-delete-button').hide();
-      $('.stretch-complete-button').hide();
-
+      $('.stretch-go-button').show();
+      $('.text-stretch').removeAttr('readonly', 'readonly');
     } else {
       $('.stretch-go-button').hide();
+      $('.stretch-edit-button').show();
+      $('.stretch-delete-button').show();
+      $('.stretch-complete-button').show();
       $('.text-stretch').attr('readonly', 'readonly');
       $('.text-stretch').html(
         `${stretchData[i].text}`
@@ -115,11 +107,13 @@ function fetchStretchResults(stretchData) {
 function fetchQuarterlyResults(quarterlyData) {
   for (var i = 0; i < quarterlyData.length; i++) {
     if (Object.keys(quarterlyData).length === 0) {
-      $('.quarterly-edit-button').hide();
-      $('.quarterly-delete-button').hide();
-      $('.quarterly-complete-button').hide();
+      $('.quarterly-go-button').show();
+      $('.text-quarterly').removeAttr('readonly', 'readonly');
     } else {
       $('.quarterly-go-button').hide();
+      $('.quarterly-edit-button').show();
+      $('.quarterly-delete-button').show();
+      $('.quarterly-complete-button').show();
       $('.text-quarterly').attr('readonly', 'readonly');
       $('.text-quarterly').html(
         `${quarterlyData[i].text}`
@@ -132,11 +126,13 @@ function fetchQuarterlyResults(quarterlyData) {
 function fetchWeeklyResults(weeklyData) {
   for (var i = 0; i < weeklyData.length; i++) {
     if (Object.keys(weeklyData).length === 0) {
-      $('.weekly-edit-button').hide();
-      $('.weekly-delete-button').hide();
-      $('.weekly-complete-button').hide();
+      $('.weekly-go-button').show();
+      $('.text-weekly').removeAttr('readonly', 'readonly');
     } else {
       $('.weekly-go-button').hide();
+      $('.weekly-edit-button').show();
+      $('.weekly-delete-button').show();
+      $('.weekly-complete-button').show();
       $('.text-weekly').attr('readonly', 'readonly');
       $('.text-weekly').html(
         `${weeklyData[i].text}`
@@ -146,7 +142,7 @@ function fetchWeeklyResults(weeklyData) {
 }
 
 
-//edit the goals
+//-------------Edit-------------------//
 function editStretchGoals(stretchData) {
   $('.stretch-edit-button').click(function() {
     $('.text-stretch').removeAttr('readonly', 'readonly');
@@ -193,7 +189,7 @@ function editStretchGoals(stretchData) {
 
         });
 
-        //Postman Call works 
+        //Postman Call works
         var settings = {
           "async": true,
           "crossDomain": true,
@@ -227,22 +223,181 @@ function editWeeklyGoals() {
 }
 
 
+//-------------Delete requests-------------------//
+function deleteStretchGoals(stretchData) {
+  $('.stretch-delete-button').click(function() {
+    for (var i = 0; i < stretchData.length; i++) {
+      console.log(stretchData[i].id);
+
+      $.ajax({
+        method: 'DELETE',
+        url: `${stretchApi}/${stretchData[i].id}`,
+        async: true,
+        crossDomain: true,
+        headers: {
+          contentType: "application/json",
+          cacheControl: "no-cache",
+        },
+        processData: false,
+        datatype: 'jsonp',
+        data: {},
+        error: function() {
+          $('.info').html('<p>An error has occurred</p>');
+        },
+        success: function(stretchData) {
+          console.log('success', stretchData);
+
+        }
+      });
+    }
+    $('.stretch-edit-button').hide();
+    $('.stretch-delete-button').hide();
+    $('.stretch-complete-button').hide();
+    $('.stretch-go-button').show();
+    $('.text-stretch').removeAttr('readonly', 'readonly');
+    $('.text-stretch').html(
+      " "
+    )
+  });
+}
 
 
+function deleteQuarterlyGoals() {
+  $('.quarterly-delete-button').click(function() {
+    for (var i = 0; i < quarterlyData.length; i++) {
+      console.log(quarterlyData[i].id);
 
-//delete goals
-function deleteGoals() {
+      $.ajax({
+        method: 'DELETE',
+        url: `${quarterlyApi}/${quarterlyData[i].id}`,
+        async: true,
+        crossDomain: true,
+        headers: {
+          contentType: "application/json",
+          cacheControl: "no-cache",
+        },
+        processData: false,
+        datatype: 'jsonp',
+        data: {},
+        error: function() {
+          $('.info').html('<p>An error has occurred</p>');
+        },
+        success: function(quarterlyData) {
+          console.log('success', quarterlyData);
+
+        }
+      });
+    }
+    $('.quarterly-edit-button').hide();
+    $('.quarterly-delete-button').hide();
+    $('.quarterly-complete-button').hide();
+    $('.quarterly-go-button').show();
+    $('.text-quarterly').removeAttr('readonly', 'readonly');
+    $('.text-quarterly').html(
+      " "
+    )
+  });
+
+}
+
+function deleteWeeklyGoals() {
+  $('.weekly-delete-button').click(function() {
+    for (var i = 0; i < weeklyData.length; i++) {
+      console.log(weeklyData[i].id);
+
+      $.ajax({
+        method: 'DELETE',
+        url: `${weeklyApi}/${weeklyData[i].id}`,
+        async: true,
+        crossDomain: true,
+        headers: {
+          contentType: "application/json",
+          cacheControl: "no-cache",
+        },
+        processData: false,
+        datatype: 'jsonp',
+        data: {},
+        error: function() {
+          $('.info').html('<p>An error has occurred</p>');
+        },
+        success: function(weeklyData) {
+          console.log('success', quarterlyData);
+        }
+      });
+    }
+    $('.weekly-edit-button').hide();
+    $('.weekly-delete-button').hide();
+    $('.weekly-complete-button').hide();
+    $('.weekly-go-button').show();
+    $('.text-weekly').removeAttr('readonly', 'readonly');
+    $('.text-weekly').html(
+      " "
+    )
+  });
+
+}
+
+//-------------Edit Complete Goal-------------------//
+function completeStretch() {
 
 
 }
 
-//complete goals
-function completeGoals() {
+function completeQuarterlyGoals() {
 
 
 }
 
+function completeWeeklyGoals() {
 
+
+}
+
+//-------------POST requests-------------------//
+function postStretchGoals() {
+  $('.stretch-go-button').click(function() {
+    let newGoal = $('.text-stretch').val();
+    console.log(newGoal);
+    let data = {};
+    data.id= "5bf8b06750ae3f00165c3da2";
+    data.text= "This dsapp will be the best thing ever";
+    data.created= 543024743839;
+    data.completed= false;
+  console.log(JSON.stringify(data));
+
+    $.ajax({
+      method: 'POST',
+      url: `${stretchApi}`,
+      async: true,
+      crossDomain: true,
+      headers: {
+        contentType: "application/json",
+        cacheControl: "no-cache",
+      },
+      processData: false,
+      datatype: 'json',
+      data: JSON.stringify(data),
+      error: function() {
+        $('.info').html('<p>An error has occurred</p>');
+      },
+      success: function(stretchData) {
+        console.log('success', stretchData);
+      }
+
+    });
+
+  });
+}
+
+function postQuarterlyGoals() {
+
+
+}
+
+function postWeeklyGoals() {
+
+
+}
 
 
 //handle the journal
@@ -252,6 +407,7 @@ function handleGoal() {
   $('.daily-page').hide();
   getGoalsData();
   handleNavBar();
+  postStretchGoals();
 }
 
 
