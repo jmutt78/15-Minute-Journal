@@ -17,7 +17,6 @@
   <header role="header">
     <div class="topnav">
       <a c id='goals-nav' href="#goals">Goals</a>
-      <a id='tasks-nav' href="#tasks">Tasks</a>
       <a id='daily-nav' href="#daily">Daily</a>
     </div>
   </header>
@@ -60,9 +59,9 @@
       </div>
       <div class="stretch-buttons">
         <button class="stretch-go-button" id="show "type="submit">Go!</button>
+        <button class="stretch-edit-go-button" id="show "type="submit">Submit</button>
         <button class="stretch-edit-button" type="submit">Edit</button>
         <button class="stretch-delete-button" type="submit">Delete</button>
-        <button class="stretch-complete-button" type="submit">Complete</button>
       </div>
       <!-- Quarterly Goal -->
       <h3>Quarterly Goal</h3>
@@ -74,7 +73,6 @@
         <button class="quarterly-go-button" type="submit">Go!</button>
         <button class="quarterly-edit-button" type="submit">Edit</button>
         <button class="quarterly-delete-button" type="submit">Delete</button>
-        <button class="quarterly-complete-button" type="submit">Complete</button>
       </div>
       <!-- Weekly Goal -->
       <h3>Weekly Goal</h3>
@@ -86,23 +84,7 @@
         <button class="weekly-go-button" type="submit">Go!</button>
         <button class="weekly-edit-button" type="submit">Edit</button>
         <button class="weekly-delete-button" type="submit">Delete</button>
-        <button class="weekly-complete-button" type="submit">Complete</button>
       </div>
-    </section>
-    <!-- Tasks Page -->
-    <section class="task-page">
-      <h2>Tasks</h2>
-      <textarea class="text-task" rows="1" cols="50">
-      </textarea>
-    </div>
-    <div class="task-buttons">
-      <button class="task-go-button" type="submit">Go!</button>
-      <button class="task-edit-button" type="submit">Edit</button>
-      <button class="task-delete-button" type="submit">Delete</button>
-      <button class="task-complete-button" type="submit">Complete</button>
-    </div>
-    <div class="task-display">
-    </div>
     </section>
     <!-- Daily Page -->
     <section class="daily-page">
@@ -150,7 +132,6 @@
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
   <script src="../public/goal.js" charset="utf-8"></script>
-  <script src="../public/tasks.js" charset="utf-8"></script>
   <script src="../public/journal.js" charset="utf-8"></script>
 </body>
 
