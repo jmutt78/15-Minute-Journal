@@ -6,8 +6,13 @@ const { QuarterlyGoal } = require("./models");
 
 
 router.get('/', (req, res) => {
+  let completed = req.query.completed;
+  let findParam = {};
+  if (completed != null) {
+      findParam.completed = completed;
+    }
   QuarterlyGoal
-    .find()
+    .find(findParam)
     .then(posts => {
       res.json(posts.map(post => post.serialize()));
     })

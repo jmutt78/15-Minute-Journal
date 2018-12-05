@@ -6,8 +6,13 @@ const { WeeklyGoal } = require("./models");
 
 
 router.get('/', (req, res) => {
+  let completed = req.query.completed;
+  let findParam = {};
+  if (completed != null) {
+      findParam.completed = completed;
+    }
   WeeklyGoal
-    .find()
+    .find(findParam)
     .then(posts => {
       res.json(posts.map(post => post.serialize()));
     })

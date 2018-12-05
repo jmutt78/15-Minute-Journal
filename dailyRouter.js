@@ -6,8 +6,14 @@ const { Daily } = require("./models");
 
 
 router.get('/', (req, res) => {
+  let created = req.query.created;
+  let findParam = {};
+  if (created != null) {
+      findParam.created = created;
+    }
+
   Daily
-    .find()
+    .find(findParam)
     .then(posts => {
       res.json(posts.map(post => post.serialize()));
     })
