@@ -16,8 +16,10 @@
   <!-- Header -->
   <header role="header">
     <div class="topnav">
-      <a c id='goals-nav' href="#goals">Goals</a>
-      <a id='daily-nav' href="#daily">Daily</a>
+      <a id='goals-nav' href="#goals">Goals</a>
+      <a id='completed-goals-nav' href="#completed-goals">Completed Goals</a>
+      <a id='daily-nav' href="#daily">Daily Journal</a>
+
     </div>
   </header>
   <!-- Main -->
@@ -53,71 +55,99 @@
       <h2>Goals</h2>
       <!-- Stretch Goal -->
       <h3>Stretch Goal</h3>
-      <div class="stretch-text">
-        <textarea class="text-stretch" rows="1" cols="50">
-        </textarea>
+      <div class="stretch-goals-completed-display">
       </div>
-      <div class="stretch-buttons">
-        <button class="stretch-go-button" id="show "type="submit">Go!</button>
-        <button class="stretch-edit-go-button" id="show "type="submit">Submit</button>
-        <button class="stretch-edit-button" type="submit">Edit</button>
-        <button class="stretch-delete-button" type="submit">Delete</button>
+      <div class="stretch-goal-dispay">
+        <div class="stretch-text">
+          <textarea class="text-stretch" rows="1" cols="50">
+        </textarea>
+        </div>
+        <textarea class="stretch-id" hidden rows="1" cols="50">
+        </textarea>
+        <div class="stretch-buttons">
+          <button class="stretch-go-button" id="show " type="submit">Go!</button>
+          <button class="stretch-edit-go-button" id="show " type="submit">Submit</button>
+          <button class="stretch-edit-button" type="submit">Edit</button>
+          <button class="stretch-delete-button" type="submit">Delete</button>
+          <button class="stretch-complete-button" type="submit">Complete</button>
+        </div>
       </div>
       <!-- Quarterly Goal -->
       <h3>Quarterly Goal</h3>
-      <div class="quarterly-text">
-        <textarea class="text-quarterly" rows="1" cols="50">
-        </textarea>
+      <div class="quarterly-goals-completed-display">
       </div>
-      <div class="quarterly-buttons">
-        <button class="quarterly-go-button" type="submit">Go!</button>
-        <button class="quarterly-edit-go-button" id="show "type="submit">Submit</button>
-        <button class="quarterly-edit-button" type="submit">Edit</button>
-        <button class="quarterly-delete-button" type="submit">Delete</button>
+      <div class="quarterly-goal-display">
+        <div class="quarterly-text">
+          <textarea class="text-quarterly" rows="1" cols="50">
+        </textarea>
+        </div>
+        <textarea class="quarterly-id" hidden rows="1" cols="50">
+      </textarea>
+        <div class="quarterly-buttons">
+          <button class="quarterly-go-button" type="submit">Go!</button>
+          <button class="quarterly-edit-go-button" id="show " type="submit">Submit</button>
+          <button class="quarterly-edit-button" type="submit">Edit</button>
+          <button class="quarterly-delete-button" type="submit">Delete</button>
+          <button class="quarterly-complete-button" type="submit">Complete</button>
+        </div>
       </div>
       <!-- Weekly Goal -->
       <h3>Weekly Goal</h3>
-      <div class="weekly-text">
-        <textarea class="text-weekly" rows="1" cols="50">
-        </textarea>
+      <div class="weekly-goals-completed-display">
+
       </div>
-      <div class="weekly-buttons">
-        <button class="weekly-go-button" type="submit">Go!</button>
-        <button class="weekly-edit-go-button" id="show "type="submit">Submit</button>
-        <button class="weekly-edit-button" type="submit">Edit</button>
-        <button class="weekly-delete-button" type="submit">Delete</button>
+      <div class="weekly-goal-display">
+        <div class="weekly-text">
+          <textarea class="text-weekly" rows="1" cols="50">
+        </textarea>
+        </div>
+        <textarea class="weekly-id" hidden rows="1" cols="50">
+      </textarea>
+        <div class="weekly-buttons">
+          <button class="weekly-go-button" type="submit">Go!</button>
+          <button class="weekly-edit-go-button" id="show " type="submit">Submit</button>
+          <button class="weekly-edit-button" type="submit">Edit</button>
+          <button class="weekly-delete-button" type="submit">Delete</button>
+          <button class="weekly-complete-button" type="submit">Complete</button>
+        </div>
       </div>
     </section>
+
     <!-- Daily Page -->
     <section class="daily-page">
       <h2>Daily Jounral</h2>
       <div class="date-picker-ui">
-              <p>Date: <input type="text" id="datepicker"></p>
+        <p>Date: <input type="text" id="datepicker"></p>
+        <button class="date-submit-button" type="submit">Submit</button>
+      </div>
+      <div class="no-jounral-entry">
+        <p></p>
       </div>
       <!-- 3 things they are thankful for -->
       <h3>Write 3 things they are thankful for</h3>
       <form class="thankful-form">
         <label class="form-thankful" for="inputDefault"></label>
-        <textarea rows="5" cols="33" required>
+        <textarea class="textarea-thankful" rows="5" cols="33" required>
           </textarea>
-        <button class="thankful-button" type="submit">Go!</button>
+
       </form>
       <!-- 3 things that will make today great -->
       <h3>Write 3 things that will make today great</h3>
       <form class="great-form">
         <label class="form-great" for="inputDefault"></label>
-        <textarea rows="5" cols="33" required>
+        <textarea class="textarea-greatful" rows="5" cols="33" required>
           </textarea>
-        <button class="great-button" type="submit">Go!</button>
       </form>
       <!-- Daily affirmation  -->
       <h3>Write your daily affirmation</h3>
       <form class="affirmation-form">
         <label class="form-affirmation" for="inputDefault"></label>
-        <textarea rows="5" cols="33" required>
+        <textarea class="textarea-aff" rows="5" cols="33" required>
           </textarea>
-        <button class="affirmation-button" type="submit">Go!</button>
       </form>
+      <div class="daily-submit button">
+        <button class="daily-button" type="submit">Submit</button>
+      </div>
       <div class="daily-display" id='hidden'>
         <h3>Daily Jounral Placeholder</h3>
       </div>
