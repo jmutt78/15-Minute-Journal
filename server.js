@@ -13,7 +13,8 @@ const dailyRouter = require("./dailyRouter");
 const app = express();
 const cors = require('cors');
 
-app.use(express.static('views'));
+
+app.use(express.static('public'));
 app.use(morgan("common"));
 app.use(express.json());
 app.use(function(req, res, next) {
