@@ -1,4 +1,5 @@
 # 15-Minute-Journal
+<pre>
 Summary: The 15 Minute Journal app helps users get their morning started by having them focus on 3 simple questions. It also keeps track of the users Stretch, Quarterly and Weekly goals. 
 Daily Journal: The user answers the three questions every day. Once the questions are answered, the app will display the answers for the user to review. 
 Completed Entries:  The user can search by date all of their completed entries in the past. The user will select the date, and the entries are displayed. If an entry is not present, the app will display an error message.
@@ -11,3 +12,4 @@ Technology:
 -Jquery
 -Node.js
 -html/css
+</pre>
