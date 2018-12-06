@@ -15,6 +15,7 @@ const cors = require('cors');
 
 
 
+app.use(express.static(__dirname + '/public'));
 app.use(morgan("common"));
 app.use(express.json());
 app.use(function(req, res, next) {
