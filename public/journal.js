@@ -7,13 +7,36 @@ const dailyApiDate = 'https://obscure-ocean-89688.herokuapp.com/daily?created=';
 function getDaily() {
   //daily nav link
   $('#daily-nav').click(function() {
+    $('.textarea-thankful').prop("required", true);
+    $('.textarea-greatful').prop("required", true);
+    $('.textarea-aff').prop("required", true);
+    $('.daily-page').show();
+    $('.thankful-form').show();
+    $('.great-form').show();
+    $('.affirmation-form').show();
+    $('.landing-page').hide();
+    $('.goals-page').hide();
+    $('.task-page').hide();
+    $('.completed-dailies').hide();
+    displayTodaysDate();
+  });
+
+  //daily nav link
+  $('#daily-completed-nav').click(function() {
     $('.daily-page').show();
     $('.landing-page').hide();
     $('.goals-page').hide();
     $('.task-page').hide();
-    displayTodaysDate();
-
-    //DatePicker UI funciton
+    $('.completed-dailies').show();
+    $('.textarea-thankful').attr('readonly', 'readonly');
+    $('.textarea-greatful').attr('readonly', 'readonly');
+    $('.textarea-aff').attr('readonly', 'readonly');
+    $('.no-jounral-entry').html(" ")
+    $('.textarea-thankful').addClass("textera-trans");
+    $('.textarea-greatful').addClass("textera-trans");
+    $('.textarea-aff').addClass("textera-trans");
+    $('.daily-button').hide();
+//DatePicker UI funciton
     $(function() {
       $("#datepicker").datepicker();
       $("#datepicker").datepicker("setDate", new Date());
@@ -42,7 +65,6 @@ function getAndFromatDate() {
     yourdate[1] = tmp;
     yourdate = yourdate.join("-");
     let formatedDate = yourdate + "T00:00:00.000Z";
-    console.log(formatedDate);
     displayOlderDates(formatedDate);
 
   });
@@ -52,7 +74,6 @@ function getAndFromatDate() {
 //------------Journal display-------------------//
 function displayOlderDates(formatedDate) {
 let queryURL = `${dailyApiDate}${formatedDate}`;
-console.log(queryURL);
   $.ajax({
     type: 'GET',
     url: queryURL,
@@ -64,10 +85,16 @@ console.log(queryURL);
       console.log('success', dailyData);
 if (Object.keys(dailyData).length != 0) {
   for (var i = 0; i < dailyData.length; i++) {
+    $('.thankful-form').show();
+    $('.great-form').show();
+    $('.affirmation-form').show();
     $('.textarea-thankful').attr('readonly', 'readonly');
     $('.textarea-greatful').attr('readonly', 'readonly');
     $('.textarea-aff').attr('readonly', 'readonly');
     $('.daily-button').hide();
+    $('.textarea-thankful').addClass("textera-trans");
+    $('.textarea-greatful').addClass("textera-trans");
+    $('.textarea-aff').addClass("textera-trans");
     $('.textarea-thankful').html(
       `${dailyData[i].answer1}`
     )
@@ -82,6 +109,15 @@ if (Object.keys(dailyData).length != 0) {
 }else {
   $('.no-jounral-entry').html(`<p>Oh No! You have no enries for the specified date!</p>
     <p>Please Try another date</p>`)
+    $('.textarea-thankful').removeClass("textera-trans");
+    $('.textarea-greatful').removeClass("textera-trans");
+    $('.textarea-aff').removeClass("textera-trans");
+    $('.textarea-thankful').html( " ")
+    $('.textarea-greatful').html(" ")
+    $('.textarea-aff').html(" ")
+    $('.thankful-form').hide();
+    $('.great-form').hide();
+    $('.affirmation-form').hide();
 }
     }
   });
@@ -113,6 +149,9 @@ function displayTodaysDate() {
           $('.textarea-thankful').attr('readonly', 'readonly');
           $('.textarea-greatful').attr('readonly', 'readonly');
           $('.textarea-aff').attr('readonly', 'readonly');
+          $('.textarea-thankful').addClass("textera-trans");
+          $('.textarea-greatful').addClass("textera-trans");
+          $('.textarea-aff').addClass("textera-trans");
           $('.daily-button').hide();
           $('.no-jounral-entry').html(" ")
           $('.textarea-thankful').html(
@@ -129,10 +168,14 @@ function displayTodaysDate() {
         $('.textarea-thankful').removeAttr('readonly', 'readonly');
         $('.textarea-greatful').removeAttr('readonly', 'readonly');
         $('.textarea-aff').removeAttr('readonly', 'readonly');
+        $('.textarea-thankful').removeClass("textera-trans");
+        $('.textarea-greatful').removeClass("textera-trans");
+        $('.textarea-aff').removeClass("textera-trans");
         $('.textarea-thankful').html( " ")
         $('.textarea-greatful').html(" ")
         $('.textarea-aff').html(" ")
         $('.daily-button').show();
+
       }
     }
   });
@@ -167,12 +210,10 @@ function createDaily() {
   });
 }
 
-
 function handleDaily() {
   getDaily();
   handleDailyButtons();
   getAndFromatDate();
-
 }
 
 $(handleDaily);

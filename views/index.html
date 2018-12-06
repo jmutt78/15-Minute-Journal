@@ -9,18 +9,18 @@
   <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
   <!-- Custom styles for this template -->
   <link href="../public/style.css" rel="stylesheet">
-
 </head>
-
 <body>
   <!-- Header -->
   <header role="header">
-    <div class="topnav">
-      <a id='goals-nav' href="#goals">Goals</a>
-      <a id='completed-goals-nav' href="#completed-goals">Completed Goals</a>
-      <a id='daily-nav' href="#daily">Daily Journal</a>
-
-    </div>
+    <section class="sidebar-menu">
+      <div class="topnav">
+        <a id='goals-nav' href="#goals">Goals</a>
+        <a id='completed-goals-nav' href="#completed-goals">Completed Goals</a>
+        <a id='daily-nav' href="#daily">Daily Journal</a>
+        <a id='daily-completed-nav' href="#daily">Completed Entry's</a>
+      </div>
+    </section>
   </header>
   <!-- Main -->
   <main role="main" class="container">
@@ -28,27 +28,11 @@
     <h1>15 Minute Daily Journal</h1>
     <!-- Landing Page -->
     <section class="landing-page">
-      <p>Welcome to the 15 Minute Journal! Please sign up or log in below</p>
-      <form class="user-form">
-        <div class="container">
-          <label for="uname"><b>Username</b></label>
-          <input type="text" placeholder="Enter Username" name="uname" required>
-
-          <label for="psw"><b>Password</b></label>
-          <input type="password" placeholder="Enter Password" name="psw" required>
-
-          <button type="submit">Login</button>
-          <label>
-            <input type="checkbox" checked="checked" name="remember"> Remember me
-          </label>
-        </div>
-
-        <div class="container" style="background-color:#f1f1f1">
-          <button type="button" class="cancelbtn">Cancel</button>
-        </div>
-      </form>
+      <h3>Welcome to the 15 Minute Journal!</h3>
+      <h3>This app will help you get focused every morning.</h3>
+      <h3>Enter your goals in the "Goal" section</h3>
+      <h3>Complete the 3 questions in the "Daily Journal" section</h3>
     </section>
-
 
     <!-- Goal Page -->
     <section class="goals-page">
@@ -94,7 +78,6 @@
       <!-- Weekly Goal -->
       <h3>Weekly Goal</h3>
       <div class="weekly-goals-completed-display">
-
       </div>
       <div class="weekly-goal-display">
         <div class="weekly-text">
@@ -112,10 +95,10 @@
         </div>
       </div>
     </section>
-
     <!-- Daily Page -->
     <section class="daily-page">
       <h2>Daily Jounral</h2>
+      <div class="completed-dailies">
       <div class="date-picker-ui">
         <p>Date: <input type="text" id="datepicker"></p>
         <button class="date-submit-button" type="submit">Submit</button>
@@ -123,27 +106,24 @@
       <div class="no-jounral-entry">
         <p></p>
       </div>
+            </div>
       <!-- 3 things they are thankful for -->
-      <h3>Write 3 things they are thankful for</h3>
       <form class="thankful-form">
+        <h3>Write 3 things they are thankful for</h3>
         <label class="form-thankful" for="inputDefault"></label>
-        <textarea class="textarea-thankful" rows="5" cols="33" required>
-          </textarea>
-
+        <textarea class="textarea-thankful" rows="5" cols="33" required></textarea>
       </form>
       <!-- 3 things that will make today great -->
-      <h3>Write 3 things that will make today great</h3>
       <form class="great-form">
+        <h3>Write 3 things that will make today great</h3>
         <label class="form-great" for="inputDefault"></label>
-        <textarea class="textarea-greatful" rows="5" cols="33" required>
-          </textarea>
+        <textarea class="textarea-greatful" rows="5" cols="33" required></textarea>
       </form>
       <!-- Daily affirmation  -->
-      <h3>Write your daily affirmation</h3>
       <form class="affirmation-form">
+        <h3>Write your daily affirmation</h3>
         <label class="form-affirmation" for="inputDefault"></label>
-        <textarea class="textarea-aff" rows="5" cols="33" required>
-          </textarea>
+        <textarea class="textarea-aff" rows="5" cols="33" required></textarea>
       </form>
       <div class="daily-submit button">
         <button class="daily-button" type="submit">Submit</button>
@@ -154,6 +134,8 @@
     </section>
     <div class="info">
       <p></p>
+    </div>
+    <div class="textera-trans">
     </div>
   </main>
 

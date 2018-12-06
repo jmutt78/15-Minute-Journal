@@ -77,6 +77,7 @@ function handleStretchButton() {
   //Edit Button
   $('.stretch-edit-button').click(function() {
     $('.text-stretch').removeAttr('readonly', 'readonly');
+    $('.text-stretch').removeClass("textera-trans");
     $('.stretch-edit-go-button').show();
     $('.stretch-delete-button').hide();
     $('.stretch-complete-button').hide();
@@ -89,6 +90,7 @@ function handleStretchButton() {
     $('.stretch-delete-button').show();
     $('.stretch-complete-button').show();
     $('.stretch-edit-button').show();
+    $('.text-stretch').addClass("textera-trans");
     $('.text-stretch').attr('readonly', 'readonly');
     $.ajax({
       type: 'GET',
@@ -143,6 +145,7 @@ function handleQuarterleyButton() {
   //Edit Button
   $('.quarterly-edit-button').click(function() {
     $('.text-quarterly').removeAttr('readonly', 'readonly');
+    $('.text-quarterly').removeClass("textera-trans");
     $('.quarterly-edit-go-button').show();
     $('.quarterly-delete-button').hide();
     $('.quarterly-complete-button').hide();
@@ -150,12 +153,12 @@ function handleQuarterleyButton() {
   });
   //Edit submit button
   $('.quarterly-edit-go-button').click(function() {
-    console.log("clicked");
     $('.quarterly-go-button').hide();
     $('.quarterly-edit-go-button').hide();
     $('.quarterly-delete-button').show();
     $('.quarterly-complete-button').show();
     $('.quarterly-edit-button').show();
+    $('.text-quarterly').addClass("textera-trans");
     $('.text-quarterly').attr('readonly', 'readonly');
     $.ajax({
       type: 'GET',
@@ -211,6 +214,7 @@ function handleWeeklyButton() {
   //Edit Button
   $('.weekly-edit-button').click(function() {
     $('.text-weekly').removeAttr('readonly', 'readonly');
+    $('.text-weekly').removeClass("textera-trans");
     $('.weekly-edit-go-button').show();
     $('.weekly-delete-button').hide();
     $('.weekly-complete-button').hide();
@@ -223,6 +227,7 @@ function handleWeeklyButton() {
     $('.weekly-delete-button').show();
     $('.weekly-complete-button').show();
     $('.weekly-edit-button').show();
+    $('.text-weekly').addClass("textera-trans");
     $('.text-weekly').attr('readonly', 'readonly');
     $.ajax({
       type: 'GET',
@@ -325,6 +330,7 @@ function fetchStretchResults(stretchData) {
       $('.stretch-edit-button').show();
       $('.stretch-delete-button').show();
       $('.stretch-complete-button').show();
+      $('.text-stretch').addClass("textera-trans");
       $('.text-stretch').attr('readonly', 'readonly');
       $('.text-stretch').html(
         `${stretchData[i].text}`
@@ -339,6 +345,7 @@ function fetchStretchResults(stretchData) {
     $('.stretch-delete-button').hide();
     $('.stretch-complete-button').hide();
     $('.stretch-go-button').show();
+    $('.text-stretch').removeClass("textera-trans");
     $('.text-stretch').removeAttr('readonly', 'readonly');
     $('.text-stretch').val(" ");
   }
@@ -354,6 +361,7 @@ function fetchQuarterlyResults(quarterlyData) {
       $('.quarterly-edit-button').show();
       $('.quarterly-delete-button').show();
       $('.quarterly-complete-button').show();
+      $('.text-quarterly').addClass("textera-trans");
       $('.text-quarterly').attr('readonly', 'readonly');
       $('.text-quarterly').html(
         `${quarterlyData[i].text}`
@@ -368,6 +376,7 @@ function fetchQuarterlyResults(quarterlyData) {
     $('.quarterly-delete-button').hide();
     $('.quarterly-complete-button').hide();
     $('.quarterly-go-button').show();
+    $('.text-quarterly').removeClass("textera-trans");
     $('.text-quarterly').removeAttr('readonly', 'readonly');
     $('.text-quarterly').val(" ");
   }
@@ -382,6 +391,7 @@ function fetchWeeklyResults(weeklyData) {
       $('.weekly-edit-button').show();
       $('.weekly-delete-button').show();
       $('.weekly-complete-button').show();
+      $('.text-weekly').addClass("textera-trans");
       $('.text-weekly').attr('readonly', 'readonly');
       $('.text-weekly').html(
         `${weeklyData[i].text}`
@@ -397,6 +407,7 @@ function fetchWeeklyResults(weeklyData) {
     $('.weekly-complete-button').hide();
     $('.weekly-go-button').show();
     $('.text-weekly').removeAttr('readonly', 'readonly');
+    $('.text-weekly').removeClass("textera-trans");
     $('.text-weekly').val(" ");
   }
 }
@@ -780,9 +791,6 @@ function postWeeklyGoals() {
   });
 }
 
-
-
-
 //handle the journal
 function handleGoal() {
   $('.goals-page').hide();
@@ -792,6 +800,4 @@ function handleGoal() {
   handleQuarterleyButton();
   handleWeeklyButton();
 }
-
-
 $(handleGoal);
