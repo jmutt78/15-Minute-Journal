@@ -10,6 +10,7 @@
   <!-- Custom styles for this template -->
   <link href="style.css" rel="stylesheet">
 </head>
+
 <body>
   <!-- Header -->
   <header role="header">
@@ -32,8 +33,20 @@
       <h3>This app will help you get focused every morning.</h3>
       <h3>Enter your goals in the "Goal" section</h3>
       <h3>Complete the 3 questions in the "Daily Journal" section</h3>
+      <button class="login-button" type="submit">Login</button>
     </section>
+    <form class="login-form">
+      <div class="container">
+        <label for="uname"><b>Username</b></label>
+        <input class="username" type="text" placeholder="Enter Username" name="uname" required>
 
+        <label for="psw"><b>Password</b></label>
+        <input class="user-password" type="password" placeholder="Enter Password" name="psw" required>
+        <button type="submit">Submit</button>
+      </div>
+      <div class="container" >
+      </div>
+    </form>
     <!-- Goal Page -->
     <section class="goals-page">
       <h2>Goals</h2>
@@ -99,14 +112,14 @@
     <section class="daily-page">
       <h2>Daily Jounral</h2>
       <div class="completed-dailies">
-      <div class="date-picker-ui">
-        <p>Date: <input type="text" id="datepicker"></p>
-        <button class="date-submit-button" type="submit">Submit</button>
+        <div class="date-picker-ui">
+          <p>Date: <input type="text" id="datepicker"></p>
+          <button class="date-submit-button" type="submit">Submit</button>
+        </div>
+        <div class="no-jounral-entry">
+          <p></p>
+        </div>
       </div>
-      <div class="no-jounral-entry">
-        <p></p>
-      </div>
-            </div>
       <!-- 3 things they are thankful for -->
       <form class="thankful-form">
         <h3>Write 3 things they are thankful for</h3>
@@ -147,6 +160,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
   <script src="goal.js" charset="utf-8"></script>
   <script src="journal.js" charset="utf-8"></script>
+  <script src="users.js" charset="utf-8"></script>
 </body>
 
 </html>
