@@ -1,5 +1,5 @@
 "use strict";
-
+require('dotenv').config();
 const express = require("express");
 const morgan = require("morgan");
 const mongoose = require('mongoose');
@@ -12,6 +12,9 @@ const stretchGoalRouter = require("./stretchGoalRouter");
 const dailyRouter = require("./dailyRouter");
 const app = express();
 const cors = require('cors');
+const passport = require('passport');
+const { router: usersRouter } = require('./users');
+const { router: authRouter, localStrategy, jwtStrategy } = require('./auth');
 
 app.use(morgan("common"));
 app.use(express.json());
@@ -26,11 +29,14 @@ app.use("/weekly", weeeklyGoalRouter);
 app.use("/quarterly", quarterlyGoalRouter);
 app.use("/stretch", stretchGoalRouter);
 app.use("/daily", dailyRouter);
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+passport.use(localStrategy);
+passport.use(jwtStrategy);
+
+app.use('/api/users/', usersRouter);
+app.use('/api/auth/', authRouter);
+
+const jwtAuth = passport.authenticate('jwt', { session: false });
+
 
 
 let server;

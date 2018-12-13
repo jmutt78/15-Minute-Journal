@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-
+const passport = require('passport');
 const { QuarterlyGoal } = require("./models");
+const jwtAuth = passport.authenticate('jwt', { session: false });
 
 
-
-router.get('/', (req, res) => {
+router.get('/', jwtAuth, (req, res) => {
   let completed = req.query.completed;
   let findParam = {};
   if (completed != null) {
@@ -22,7 +22,7 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', jwtAuth, (req, res) => {
   QuarterlyGoal
     .findById(req.params.id)
     .then(post => res.json(post.serialize()))
@@ -32,7 +32,7 @@ router.get('/:id', (req, res) => {
     });
 });
 
-router.post('/', (req, res) => {
+router.post('/', jwtAuth, (req, res) => {
   const requiredFields = ['text'];
   for (let i = 0; i < requiredFields.length; i++) {
     const field = requiredFields[i];
@@ -55,7 +55,7 @@ router.post('/', (req, res) => {
 
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', jwtAuth, (req, res) => {
   QuarterlyGoal
     .findByIdAndRemove(req.params.id)
     .then(() => {
@@ -67,7 +67,7 @@ router.delete('/:id', (req, res) => {
     });
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', jwtAuth, (req, res) => {
   if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
     res.status(400).json({
       error: 'Request path id and request body id values must match'
@@ -89,7 +89,7 @@ QuarterlyGoal
 });
 
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', jwtAuth, (req, res) => {
 QuarterlyGoal
   .findByIdAndRemove(req.params.id)
   .then(() => {
