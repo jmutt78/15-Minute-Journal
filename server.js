@@ -16,6 +16,9 @@ const passport = require('passport');
 const { router: usersRouter } = require('./users');
 const { router: authRouter, localStrategy, jwtStrategy } = require('./auth');
 
+
+
+app.use(express.static(__dirname + '/public'));
 app.use(morgan("common"));
 app.use(express.json());
 app.use(function(req, res, next) {

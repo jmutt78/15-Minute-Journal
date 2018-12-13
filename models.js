@@ -70,7 +70,7 @@ stretchGoalSchema.methods.serialize = function() {
 };
 //journal schema
 const dailySchema = mongoose.Schema({
-    created: {type: Number, default: Date.now},
+    created: {type: Date, default: new Date().toLocaleDateString()},
     answer1: {type: String},
     answer2: {type: String},
     answer3: {type: String},
