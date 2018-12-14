@@ -1,11 +1,10 @@
 const express = require("express");
 const router = express.Router();
-
+const passport = require('passport');
 const { Daily } = require("./models");
+const jwtAuth = passport.authenticate('jwt', { session: false });
 
-
-
-router.get('/', (req, res) => {
+router.get('/', jwtAuth, (req, res) => {
   let created = req.query.created;
   let findParam = {};
   if (created != null) {
@@ -23,7 +22,7 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', jwtAuth, (req, res) => {
   Daily
     .findById(req.params.id)
     .then(post => res.json(post.serialize()))
@@ -33,7 +32,7 @@ router.get('/:id', (req, res) => {
     });
 });
 
-router.post('/', (req, res) => {
+router.post('/', jwtAuth, (req, res) => {
   const requiredFields = ['answer1','answer2','answer3'];
   for (let i = 0; i < requiredFields.length; i++) {
     const field = requiredFields[i];
@@ -58,7 +57,7 @@ router.post('/', (req, res) => {
 
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', jwtAuth, (req, res) => {
   Daily
     .findByIdAndRemove(req.params.id)
     .then(() => {
