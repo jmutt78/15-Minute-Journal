@@ -1,10 +1,16 @@
-const authApi = 'http://localhost:8080/api/auth/login';
+const authApi = 'https://obscure-ocean-89688.herokuapp.com/api/auth/login';
 
 function handleLogin() {
   $('.topnav').hide();
   $('.login-form').hide();
+  $('.logout-button').hide();
   $('.login-button').click(function() {
+    $('.login-button').hide();
     getUser();
+  });
+  $('.logout-button').click(function() {
+    location.reload();
+
   });
 }
 
@@ -37,11 +43,29 @@ function getUser() {
       "processData": false,
       "data": JSON.stringify(data)
     }
-    $.ajax(settings).done(function(response) {
+    $.ajax(settings)
+    .done(function(response){
+      $('.error').hide();
+      $('.logout-button').show();
+      $('.login-form').hide();
+      $('.topnav').show();
       console.log(response);
       localStorage.setItem('token', response.authToken);
       console.log(localStorage.getItem('token'));
+
+
+
+
+
+
+
+    })
+    .fail(function(xhr, status, error) {
+        console.log('no obj');
+        $('.error').show();
+        $('.error').html('<p>Your username and password do not match</p>');
     });
+
 
   });
 }

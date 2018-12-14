@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>15 Minute Daily Journal</title>
   <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
   <!-- Custom styles for this template -->
   <link href="style.css" rel="stylesheet">
@@ -14,19 +15,23 @@
 <body>
   <!-- Header -->
   <header role="header">
-    <section class="sidebar-menu">
-      <div class="topnav">
-        <a id='goals-nav' href="#goals">Goals</a>
-        <a id='completed-goals-nav' href="#completed-goals">Completed Goals</a>
-        <a id='daily-nav' href="#daily">Daily Journal</a>
-        <a id='daily-completed-nav' href="#daily">Completed Entries</a>
-      </div>
+    <section class="header">
+      <input class="menu-btn" type="checkbox" id="menu-btn" />
+      <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+      <ul class="topnav">
+        <li><a id='goals-nav' href="#goals">Goals</a></li>
+        <li><a id='completed-goals-nav' href="#completed-goals">Completed Goals</a></li>
+        <li><a id='daily-nav' href="#daily">Daily Journal</a></li>
+        <li><a id='daily-completed-nav' href="#daily">Completed Entries</a></li>
+        <li><button class="logout-button" type="submit">Logout</button></li>
+      </ul>
     </section>
   </header>
   <!-- Main -->
   <main role="main" class="container">
     <!-- Title -->
-    <h1>15 Minute Daily Journal</h1>
+
+    <h1 class="title-text" >15 Minute Daily Journal</h1>
     <!-- Landing Page -->
     <section class="landing-page">
       <h3>Welcome to the 15 Minute Journal!</h3>
@@ -44,7 +49,7 @@
         <input class="user-password" type="password" placeholder="Enter Password" name="psw" required>
         <button type="submit">Submit</button>
       </div>
-      <div class="container" >
+      <div class="container">
       </div>
     </form>
     <!-- Goal Page -->
@@ -110,9 +115,11 @@
     </section>
     <!-- Daily Page -->
     <section class="daily-page">
-      <h2>Daily Jounral</h2>
+      <h2>Daily Journal</h2>
       <div class="completed-dailies">
+        <h3>Please choose a date and click submit</h3>
         <div class="date-picker-ui">
+
           <p>Date: <input type="text" id="datepicker"></p>
           <button class="date-submit-button" type="submit">Submit</button>
         </div>
@@ -142,10 +149,13 @@
         <button class="daily-button" type="submit">Submit</button>
       </div>
       <div class="daily-display" id='hidden'>
-        <h3>Daily Jounral Placeholder</h3>
+        <h3>Daily Journal Placeholder</h3>
       </div>
     </section>
     <div class="info">
+      <p></p>
+    </div>
+    <div class="error">
       <p></p>
     </div>
     <div class="textera-trans">
