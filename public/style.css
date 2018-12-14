@@ -70,7 +70,7 @@ ol, ul {
   margin-top: 60px;
 }
 
-.stretch-goals-completed-display li {
+.list-group-item {
   margin-bottom: 1rem;
   font-size: 1.6rem;
   text-decoration: line-through;

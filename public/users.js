@@ -23,11 +23,10 @@ function getUser() {
   $('.login-form').show();
   $('.landing-page').hide();
   $('.login-form').submit(function() {
+
     event.preventDefault();
     let userName = $('.username').val();
     let password = $('.user-password').val();
-    console.log(userName);
-    console.log(password);
     let data = {};
     data.username = `${userName}`;
     data.password = `${password}`;
@@ -49,24 +48,15 @@ function getUser() {
       $('.logout-button').show();
       $('.login-form').hide();
       $('.topnav').show();
-      console.log(response);
       localStorage.setItem('token', response.authToken);
-      console.log(localStorage.getItem('token'));
-
-
-
-
-
-
 
     })
     .fail(function(xhr, status, error) {
-        console.log('no obj');
         $('.error').show();
         $('.error').html('<p>Your username and password do not match</p>');
     });
-
-
+    $('.username').val("");
+    $('.user-password').val("");
   });
 }
 

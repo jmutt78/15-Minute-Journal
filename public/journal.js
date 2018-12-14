@@ -1,4 +1,5 @@
 'use strict';
+
 const dailyApi = 'https://obscure-ocean-89688.herokuapp.com/daily';
 const dailyApiDate = 'https://obscure-ocean-89688.herokuapp.com/daily?created=';
 
@@ -74,52 +75,58 @@ function getAndFromatDate() {
 //------------Journal display-------------------//
 function displayOlderDates(formatedDate) {
 let queryURL = `${dailyApiDate}${formatedDate}`;
-  $.ajax({
-    type: 'GET',
-    url: queryURL,
-    datatype: 'jsonp',
-    error: function() {
-      $('.info').html('<p>An error has occurred</p>');
-    },
-    success: function(dailyData) {
-      console.log('success', dailyData);
-if (Object.keys(dailyData).length != 0) {
-  for (var i = 0; i < dailyData.length; i++) {
-    $('.thankful-form').show();
-    $('.great-form').show();
-    $('.affirmation-form').show();
-    $('.textarea-thankful').attr('readonly', 'readonly');
-    $('.textarea-greatful').attr('readonly', 'readonly');
-    $('.textarea-aff').attr('readonly', 'readonly');
-    $('.daily-button').hide();
-    $('.textarea-thankful').addClass("textera-trans");
-    $('.textarea-greatful').addClass("textera-trans");
-    $('.textarea-aff').addClass("textera-trans");
-    $('.textarea-thankful').html(
-      `${dailyData[i].answer1}`
-    )
-    $('.textarea-greatful').html(
-      `${dailyData[i].answer2}`
-    )
-    $('.textarea-aff').html(
-      `${dailyData[i].answer3}`
-    )
-    $('.no-jounral-entry').html(" ")
-  }
-}else {
-  $('.no-jounral-entry').html(`<p>Oh No! You have no enries for the specified date!</p>
-    <p>Please Try another date</p>`)
-    $('.textarea-thankful').removeClass("textera-trans");
-    $('.textarea-greatful').removeClass("textera-trans");
-    $('.textarea-aff').removeClass("textera-trans");
-    $('.textarea-thankful').html( " ")
-    $('.textarea-greatful').html(" ")
-    $('.textarea-aff').html(" ")
-    $('.thankful-form').hide();
-    $('.great-form').hide();
-    $('.affirmation-form').hide();
+var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": `${queryURL}`,
+  "method": "GET",
+  "headers": {
+    "Authorization": `Bearer ${token}`,
+    "cache-control": "no-cache",
+  },
 }
-    }
+$.ajax(settings)
+  .done(function(dailyData) {
+    console.log('success', dailyData);
+if (Object.keys(dailyData).length != 0) {
+for (var i = 0; i < dailyData.length; i++) {
+  $('.thankful-form').show();
+  $('.great-form').show();
+  $('.affirmation-form').show();
+  $('.textarea-thankful').attr('readonly', 'readonly');
+  $('.textarea-greatful').attr('readonly', 'readonly');
+  $('.textarea-aff').attr('readonly', 'readonly');
+  $('.daily-button').hide();
+  $('.textarea-thankful').addClass("textera-trans");
+  $('.textarea-greatful').addClass("textera-trans");
+  $('.textarea-aff').addClass("textera-trans");
+  $('.textarea-thankful').html(
+    `${dailyData[i].answer1}`
+  )
+  $('.textarea-greatful').html(
+    `${dailyData[i].answer2}`
+  )
+  $('.textarea-aff').html(
+    `${dailyData[i].answer3}`
+  )
+  $('.no-jounral-entry').html(" ")
+}
+}else {
+$('.no-jounral-entry').html(`<p>Oh No! You have no enries for the specified date!</p>
+  <p>Please Try another date</p>`)
+  $('.textarea-thankful').removeClass("textera-trans");
+  $('.textarea-greatful').removeClass("textera-trans");
+  $('.textarea-aff').removeClass("textera-trans");
+  $('.textarea-thankful').html( " ")
+  $('.textarea-greatful').html(" ")
+  $('.textarea-aff').html(" ")
+  $('.thankful-form').hide();
+  $('.great-form').hide();
+  $('.affirmation-form').hide();
+}
+  })
+  .fail(function(xhr, status, error) {
+    $('.info').html('<p>An error has occurred</p>');
   });
 
 }
@@ -135,14 +142,18 @@ function displayTodaysDate() {
   let newDates = [year, month, day].join('-');
   let formatedDate = newDates + "T00:00:00.000Z";
   let queryDate = `${dailyApiDate}${formatedDate}`;
-  $.ajax({
-    type: 'GET',
-    url: queryDate,
-    datatype: 'jsonp',
-    error: function() {
-      $('.info').html('<p>An error has occurred</p>');
+  var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": `${queryDate}`,
+    "method": "GET",
+    "headers": {
+      "Authorization": `Bearer ${token}`,
+      "cache-control": "no-cache",
     },
-    success: function(dailyData) {
+  }
+  $.ajax(settings)
+    .done(function(dailyData) {
       console.log('success', dailyData);
       if (Object.keys(dailyData).length != 0) {
         for (var i = 0; i < dailyData.length; i++) {
@@ -175,12 +186,11 @@ function displayTodaysDate() {
         $('.textarea-greatful').html(" ")
         $('.textarea-aff').html(" ")
         $('.daily-button').show();
-
       }
-    }
-  });
-
-
+    })
+    .fail(function(xhr, status, error) {
+      $('.info').html('<p>An error has occurred</p>');
+    });
 }
 
 
@@ -199,6 +209,7 @@ function createDaily() {
     "url": `${dailyApi}`,
     "method": "POST",
     "headers": {
+      "Authorization": `Bearer ${token}`,
       "Content-Type": "application/json",
       "cache-control": "no-cache",
     },

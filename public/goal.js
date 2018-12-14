@@ -1,5 +1,5 @@
 'use strict';
-
+const token = localStorage.getItem('token');
 const stretchApi = 'https://obscure-ocean-89688.herokuapp.com/stretch';
 const quarterlyApi = 'https://obscure-ocean-89688.herokuapp.com/quarterly';
 const weeklyApi = 'https://obscure-ocean-89688.herokuapp.com/weekly';
@@ -92,48 +92,69 @@ function handleStretchButton() {
     $('.stretch-edit-button').show();
     $('.text-stretch').addClass("textera-trans");
     $('.text-stretch').attr('readonly', 'readonly');
-    $.ajax({
-      type: 'GET',
-      url: stretchApi,
-      datatype: 'jsonp',
-      error: function() {
-        $('.info').html('<p>An error has occurred</p>');
+    var settings = {
+      "async": true,
+      "crossDomain": true,
+      "url": `${stretchApi}`,
+      "method": "GET",
+      "headers": {
+        "Authorization": `Bearer ${token}`,
+        "cache-control": "no-cache",
       },
-      success: function(stretchData) {
+    }
+    $.ajax(settings)
+      .done(function(stretchData) {
         console.log('success', stretchData);
         editStretchGoals(stretchData);
-      }
-    });
+
+      })
+      .fail(function(xhr, status, error) {
+        $('.info').html('<p>An error has occurred</p>');
+      });
   });
   //complete function
   $('.stretch-complete-button').click(function() {
-    $.ajax({
-      type: 'GET',
-      url: stretchApi,
-      datatype: 'jsonp',
-      error: function() {
-        $('.info').html('<p>An error has occurred</p>');
+    var settings = {
+      "async": true,
+      "crossDomain": true,
+      "url": `${stretchApi}`,
+      "method": "GET",
+      "headers": {
+        "Authorization": `Bearer ${token}`,
+        "cache-control": "no-cache",
       },
-      success: function(stretchData) {
+    }
+    $.ajax(settings)
+      .done(function(stretchData) {
         console.log('success', stretchData);
         completeStretch(stretchData);
-      }
-    });
+
+      })
+      .fail(function(xhr, status, error) {
+        $('.info').html('<p>An error has occurred</p>');
+      });
   });
   //Delete Button
   $('.stretch-delete-button').click(function() {
-    $.ajax({
-      type: 'GET',
-      url: stretchApi,
-      datatype: 'jsonp',
-      error: function() {
-        $('.info').html('<p>An error has occurred</p>');
+    var settings = {
+      "async": true,
+      "crossDomain": true,
+      "url": `${stretchApi}`,
+      "method": "GET",
+      "headers": {
+        "Authorization": `Bearer ${token}`,
+        "cache-control": "no-cache",
       },
-      success: function(stretchData) {
+    }
+    $.ajax(settings)
+      .done(function(stretchData) {
         console.log('success', stretchData);
         deleteStretchGoals(stretchData);
-      }
-    });
+
+      })
+      .fail(function(xhr, status, error) {
+        $('.info').html('<p>An error has occurred</p>');
+      });
   });
 }
 //Quarterly Button
@@ -160,48 +181,69 @@ function handleQuarterleyButton() {
     $('.quarterly-edit-button').show();
     $('.text-quarterly').addClass("textera-trans");
     $('.text-quarterly').attr('readonly', 'readonly');
-    $.ajax({
-      type: 'GET',
-      url: quarterlyApi,
-      datatype: 'jsonp',
-      error: function() {
-        $('.info').html('<p>An error has occurred</p>');
+    var settings = {
+      "async": true,
+      "crossDomain": true,
+      "url": `${quarterlyApi}`,
+      "method": "GET",
+      "headers": {
+        "Authorization": `Bearer ${token}`,
+        "cache-control": "no-cache",
       },
-      success: function(quarterlyData) {
+    }
+    $.ajax(settings)
+      .done(function(quarterlyData) {
         console.log('success', quarterlyData);
         editQuarterlyGoals(quarterlyData);
-      }
-    });
+
+      })
+      .fail(function(xhr, status, error) {
+        $('.info').html('<p>An error has occurred</p>');
+      });
   });
   //completed button
   $('.quarterly-complete-button').click(function() {
-    $.ajax({
-      type: 'GET',
-      url: quarterlyApi,
-      datatype: 'jsonp',
-      error: function() {
-        $('.info').html('<p>An error has occurred</p>');
+    var settings = {
+      "async": true,
+      "crossDomain": true,
+      "url": `${quarterlyApi}`,
+      "method": "GET",
+      "headers": {
+        "Authorization": `Bearer ${token}`,
+        "cache-control": "no-cache",
       },
-      success: function(quarterlyData) {
+    }
+    $.ajax(settings)
+      .done(function(quarterlyData) {
         console.log('success', quarterlyData);
         completeQuarterlyGoals(quarterlyData);
-      }
-    });
+
+      })
+      .fail(function(xhr, status, error) {
+        $('.info').html('<p>An error has occurred</p>');
+      });
   });
   //Delete Button
   $('.quarterly-delete-button').click(function() {
-    $.ajax({
-      type: 'GET',
-      url: quarterlyApi,
-      datatype: 'jsonp',
-      error: function() {
-        $('.info').html('<p>An error has occurred</p>');
+    var settings = {
+      "async": true,
+      "crossDomain": true,
+      "url": `${quarterlyApi}`,
+      "method": "GET",
+      "headers": {
+        "Authorization": `Bearer ${token}`,
+        "cache-control": "no-cache",
       },
-      success: function(quarterlyData) {
+    }
+    $.ajax(settings)
+      .done(function(quarterlyData) {
         console.log('success', quarterlyData);
         deleteQuarterlyGoals(quarterlyData);
-      }
-    });
+
+      })
+      .fail(function(xhr, status, error) {
+        $('.info').html('<p>An error has occurred</p>');
+      });
   });
 }
 
@@ -229,96 +271,138 @@ function handleWeeklyButton() {
     $('.weekly-edit-button').show();
     $('.text-weekly').addClass("textera-trans");
     $('.text-weekly').attr('readonly', 'readonly');
-    $.ajax({
-      type: 'GET',
-      url: weeklyApi,
-      datatype: 'jsonp',
-      error: function() {
-        $('.info').html('<p>An error has occurred</p>');
+    var settings = {
+      "async": true,
+      "crossDomain": true,
+      "url": `${weeklyApi}`,
+      "method": "GET",
+      "headers": {
+        "Authorization": `Bearer ${token}`,
+        "cache-control": "no-cache",
       },
-      success: function(weeklyData) {
+    }
+    $.ajax(settings)
+      .done(function(weeklyData) {
         console.log('success', weeklyData);
         editWeeklyGoals(weeklyData);
-      }
-    });
+
+      })
+      .fail(function(xhr, status, error) {
+        $('.info').html('<p>An error has occurred</p>');
+      });
   });
   //completed button
   $('.weekly-complete-button').click(function() {
-    $.ajax({
-      type: 'GET',
-      url: weeklyApi,
-      datatype: 'jsonp',
-      error: function() {
-        $('.info').html('<p>An error has occurred</p>');
+    var settings = {
+      "async": true,
+      "crossDomain": true,
+      "url": `${weeklyApi}`,
+      "method": "GET",
+      "headers": {
+        "Authorization": `Bearer ${token}`,
+        "cache-control": "no-cache",
       },
-      success: function(weeklyData) {
+    }
+    $.ajax(settings)
+      .done(function(weeklyData) {
         console.log('success', weeklyData);
         completeWeeklyGoals(weeklyData);
-      }
-    });
+
+      })
+      .fail(function(xhr, status, error) {
+        $('.info').html('<p>An error has occurred</p>');
+      });
   });
   //Delete Button
   $('.weekly-delete-button').click(function() {
-    $.ajax({
-      type: 'GET',
-      url: weeklyApi,
-      datatype: 'jsonp',
-      error: function() {
-        $('.info').html('<p>An error has occurred</p>');
+    var settings = {
+      "async": true,
+      "crossDomain": true,
+      "url": `${weeklyApi}`,
+      "method": "GET",
+      "headers": {
+        "Authorization": `Bearer ${token}`,
+        "cache-control": "no-cache",
       },
-      success: function(weeklyData) {
+    }
+    $.ajax(settings)
+      .done(function(weeklyData) {
         console.log('success', weeklyData);
         deleteWeeklyGoals(weeklyData);
-      }
-    });
+
+      })
+      .fail(function(xhr, status, error) {
+        $('.info').html('<p>An error has occurred</p>');
+      });
   });
 }
 //-------------Get requests-------------------//
 function getStrechGoalsData() {
   //ajax get request for stretch goals
-  $.ajax({
-    type: 'GET',
-    url: stretchApiCompleted,
-    datatype: 'jsonp',
-    error: function() {
-      $('.info').html('<p>An error has occurred</p>');
+  var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": `${stretchApiCompleted}`,
+    "method": "GET",
+    "headers": {
+      "Authorization": `Bearer ${token}`,
+      "cache-control": "no-cache",
     },
-    success: function(stretchData) {
+  }
+  $.ajax(settings)
+    .done(function(stretchData) {
       console.log('success', stretchData);
       fetchStretchResults(stretchData);
-    }
-  });
+
+    })
+    .fail(function(xhr, status, error) {
+      $('.info').html('<p>An error has occurred</p>');
+    });
 }
 //quarter goal Ajax
 function getQuarterlyData() {
-  $.ajax({
-    type: 'GET',
-    url: quarterlyApiCompleted,
-    datatype: 'jsonp',
-    error: function() {
-      $('.info').html('<p>An error has occurred</p>');
+  var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": `${quarterlyApiCompleted}`,
+    "method": "GET",
+    "headers": {
+      "Authorization": `Bearer ${token}`,
+      "cache-control": "no-cache",
     },
-    success: function(quarterlyData) {
+  }
+  $.ajax(settings)
+    .done(function(quarterlyData) {
       console.log('success', quarterlyData);
       fetchQuarterlyResults(quarterlyData);
-    }
-  });
+
+    })
+    .fail(function(xhr, status, error) {
+      $('.info').html('<p>An error has occurred</p>');
+    });
 }
 
 //get weekely api datatype
 function getWeeklyData() {
-  $.ajax({
-    type: 'GET',
-    url: weeklyApiCompleted,
-    datatype: 'jsonp',
-    error: function() {
-      $('.info').html('<p>An error has occurred</p>');
+  var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": `${weeklyApiCompleted}`,
+    "method": "GET",
+    "headers": {
+      "Authorization": `Bearer ${token}`,
+      "cache-control": "no-cache",
     },
-    success: function(weeklyData) {
+  }
+  $.ajax(settings)
+    .done(function(weeklyData) {
       console.log('success', weeklyData);
       fetchWeeklyResults(weeklyData);
-    }
-  });
+
+    })
+    .fail(function(xhr, status, error) {
+      $('.info').html('<p>An error has occurred</p>');
+    });
 }
 //-------------displays-------------------//
 //Stretch goal display
@@ -413,143 +497,164 @@ function fetchWeeklyResults(weeklyData) {
 }
 //Display completed stretch goals
 function displayCompletedStretchGoals() {
-  $.ajax({
-    type: 'GET',
-    url: stretchApiTrue,
-    datatype: 'jsonp',
-    error: function() {
-      $('.info').html('<p>An error has occurred</p>');
+  var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": `${stretchApiTrue}`,
+    "method": "GET",
+    "headers": {
+      "Authorization": `Bearer ${token}`,
+      "cache-control": "no-cache",
     },
-    success: function(stretchData) {
+  }
+  $.ajax(settings)
+    .done(function(stretchData) {
       console.log('success', stretchData);
       for (var i = 0; i < stretchData.length; i++) {
         $('.stretch-goals-completed-display').append(
           `<ul class="list-group">
-          <li class="list-group-item">${stretchData[i].text}</li>
-          </ul>`
+        <li class="list-group-item">${stretchData[i].text}</li>
+        </ul>`
         )
       }
-    }
-  });
+    })
+    .fail(function(xhr, status, error) {
+      $('.info').html('<p>An error has occurred</p>');
+    });
 }
 
 //Display completed quarterly goals
 function displayCompletedQuarterlyGoals() {
-  $.ajax({
-    type: 'GET',
-    url: quarterlyApiTrue,
-    datatype: 'jsonp',
-    error: function() {
-      $('.info').html('<p>An error has occurred</p>');
+  var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": `${quarterlyApiTrue}`,
+    "method": "GET",
+    "headers": {
+      "Authorization": `Bearer ${token}`,
+      "cache-control": "no-cache",
     },
-    success: function(quarterlyData) {
+  }
+  $.ajax(settings)
+    .done(function(quarterlyData) {
       console.log('success', quarterlyData);
       for (var i = 0; i < quarterlyData.length; i++) {
         $('.quarterly-goals-completed-display').append(
           `<ul class="list-group">
-          <li class="list-group-item">${quarterlyData[i].text}</li>
-          </ul>`
+        <li class="list-group-item">${quarterlyData[i].text}</li>
+        </ul>`
         )
       }
-    }
-  });
+    })
+    .fail(function(xhr, status, error) {
+      $('.info').html('<p>An error has occurred</p>');
+    });
 }
 
 //Display completed weekly goals
 function displayCompletedWeeklyGoals() {
-  $.ajax({
-    type: 'GET',
-    url: weeklyApiTrue,
-    datatype: 'jsonp',
-    error: function() {
-      $('.info').html('<p>An error has occurred</p>');
+  var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": `${weeklyApiTrue}`,
+    "method": "GET",
+    "headers": {
+      "Authorization": `Bearer ${token}`,
+      "cache-control": "no-cache",
     },
-    success: function(weeklyData) {
+  }
+  $.ajax(settings)
+    .done(function(weeklyData) {
       console.log('success', weeklyData);
       for (var i = 0; i < weeklyData.length; i++) {
         $('.weekly-goals-completed-display').append(
           `<ul class="list-group">
-          <li class="list-group-item">${weeklyData[i].text}</li>
-          </ul>`
+        <li class="list-group-item">${weeklyData[i].text}</li>
+        </ul>`
         )
       }
-    }
-  });
+    })
+    .fail(function(xhr, status, error) {
+      $('.info').html('<p>An error has occurred</p>');
+    });
 }
 
 //-------------Edit-------------------//
 //still need to connect this to a new button
 function editStretchGoals(stretchData) {
   let stretchId = $('.stretch-id').val();
-    let newGoal = $('.text-stretch').val();
-    let idUrl = `${stretchApi}/${stretchId}`;
-    let data = {};
-    data.id = `${stretchId}`
-    data.text = `${newGoal}`;
-    data.completed = false;
-    var settings = {
-      "async": true,
-      "crossDomain": true,
-      "url": `${idUrl}`,
-      "method": "PUT",
-      "headers": {
-        "Content-Type": "application/json",
-        "cache-control": "no-cache",
-      },
-      "processData": false,
-      "data": JSON.stringify(data)
-    }
-    $.ajax(settings).done(function(response) {
-      console.log(response);
-    });
+  let newGoal = $('.text-stretch').val();
+  let idUrl = `${stretchApi}/${stretchId}`;
+  let data = {};
+  data.id = `${stretchId}`
+  data.text = `${newGoal}`;
+  data.completed = false;
+  var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": `${idUrl}`,
+    "method": "PUT",
+    "headers": {
+      "Authorization": `Bearer ${token}`,
+      "Content-Type": "application/json",
+      "cache-control": "no-cache",
+    },
+    "processData": false,
+    "data": JSON.stringify(data)
+  }
+  $.ajax(settings).done(function(response) {
+    console.log(response);
+  });
 }
 
 function editQuarterlyGoals(quarterlyData) {
   let qaurterlyId = $('.quarterly-id').val();
-    let newGoal = $('.text-stretch').val();
-    let idUrl = `${quarterlyApi}/${qaurterlyId}`;
-    let data = {};
-    data.id = `${qaurterlyId}`
-    data.text = `${newGoal}`;
-    data.completed = false;
-    var settings = {
-      "async": true,
-      "crossDomain": true,
-      "url": `${idUrl}`,
-      "method": "PUT",
-      "headers": {
-        "Content-Type": "application/json",
-        "cache-control": "no-cache",
-      },
-      "processData": false,
-      "data": JSON.stringify(data)
-    }
-    $.ajax(settings).done(function(response) {});
+  let newGoal = $('.text-stretch').val();
+  let idUrl = `${quarterlyApi}/${qaurterlyId}`;
+  let data = {};
+  data.id = `${qaurterlyId}`
+  data.text = `${newGoal}`;
+  data.completed = false;
+  var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": `${idUrl}`,
+    "method": "PUT",
+    "headers": {
+      "Authorization": `Bearer ${token}`,
+      "Content-Type": "application/json",
+      "cache-control": "no-cache",
+    },
+    "processData": false,
+    "data": JSON.stringify(data)
+  }
+  $.ajax(settings).done(function(response) {});
 }
 
 function editWeeklyGoals() {
   let weeklyId = $('.weekly-id').val();
-    let newGoal = $('.text-stretch').val();
-    let idUrl = `${weeklyApi}/${weeklyId}`;
-    let data = {};
-    data.id = `${weeklyId}`
-    data.text = `${newGoal}`;
-    data.completed = false;
-    var settings = {
-      "async": true,
-      "crossDomain": true,
-      "url": `${idUrl}`,
-      "method": "PUT",
-      "headers": {
-        "Content-Type": "application/json",
-        "cache-control": "no-cache",
-      },
-      "processData": false,
-      "data": JSON.stringify(data)
-    }
-    $.ajax(settings).done(function(response) {
-      console.log(response);
-    });
+  let newGoal = $('.text-stretch').val();
+  let idUrl = `${weeklyApi}/${weeklyId}`;
+  let data = {};
+  data.id = `${weeklyId}`
+  data.text = `${newGoal}`;
+  data.completed = false;
+  var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": `${idUrl}`,
+    "method": "PUT",
+    "headers": {
+      "Authorization": `Bearer ${token}`,
+      "Content-Type": "application/json",
+      "cache-control": "no-cache",
+    },
+    "processData": false,
+    "data": JSON.stringify(data)
+  }
+  $.ajax(settings).done(function(response) {
+    console.log(response);
+  });
 }
 
 
@@ -565,6 +670,7 @@ function deleteStretchGoals(stretchData) {
     async: true,
     crossDomain: true,
     headers: {
+      Authorization: `Bearer ${token}`,
       contentType: "application/json",
       cacheControl: "no-cache",
     },
@@ -593,6 +699,7 @@ function deleteQuarterlyGoals(quarterlyData) {
     async: true,
     crossDomain: true,
     headers: {
+      Authorization: `Bearer ${token}`,
       contentType: "application/json",
       cacheControl: "no-cache",
     },
@@ -620,6 +727,7 @@ function deleteWeeklyGoals(weeklyData) {
     async: true,
     crossDomain: true,
     headers: {
+      Authorization: `Bearer ${token}`,
       contentType: "application/json",
       cacheControl: "no-cache",
     },
@@ -638,84 +746,87 @@ function deleteWeeklyGoals(weeklyData) {
 
 //-------------Edit Complete Goal-------------------//
 function completeStretch(stretchData) {
-    let stretchId = $('.stretch-id').val();
-    let goal = $('.text-stretch').val();
-    let idUrl = `${stretchApi}/${stretchId}`;
-    let data = {};
-    data.id = `${stretchId}`
-    data.text = `${goal}`;
-    data.completed = true;
-    var settings = {
-      "async": true,
-      "crossDomain": true,
-      "url": `${idUrl}`,
-      "method": "PUT",
-      "headers": {
-        "Content-Type": "application/json",
-        "cache-control": "no-cache",
-      },
-      "processData": false,
-      "data": JSON.stringify(data)
-    }
-    $.ajax(settings).done(function(response) {
-      console.log(response);
-      //Get the object and push it back up to dispaly
-      getStrechGoalsData();
-    });
+  let stretchId = $('.stretch-id').val();
+  let goal = $('.text-stretch').val();
+  let idUrl = `${stretchApi}/${stretchId}`;
+  let data = {};
+  data.id = `${stretchId}`
+  data.text = `${goal}`;
+  data.completed = true;
+  var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": `${idUrl}`,
+    "method": "PUT",
+    "headers": {
+      "Authorization": `Bearer ${token}`,
+      "Content-Type": "application/json",
+      "cache-control": "no-cache",
+    },
+    "processData": false,
+    "data": JSON.stringify(data)
+  }
+  $.ajax(settings).done(function(response) {
+    console.log(response);
+    //Get the object and push it back up to dispaly
+    getStrechGoalsData();
+  });
 }
 
 function completeQuarterlyGoals(quarterlyData) {
   let qaurterlyId = $('.quarterly-id').val();
-    let goal = $('.text-quarterly').val();
-    let idUrl = `${quarterlyApi}/${qaurterlyId}`;
-    let data = {};
-    data.id = `${qaurterlyId}`
-    data.text = `${goal}`;
-    data.completed = true;
-    var settings = {
-      "async": true,
-      "crossDomain": true,
-      "url": `${idUrl}`,
-      "method": "PUT",
-      "headers": {
-        "Content-Type": "application/json",
-        "cache-control": "no-cache",
-      },
-      "processData": false,
-      "data": JSON.stringify(data)
-    }
-    $.ajax(settings).done(function(response) {
-      console.log(response);
-      //Get the object and push it back up to dispaly
-      getQuarterlyData();
-    });
+  let goal = $('.text-quarterly').val();
+  let idUrl = `${quarterlyApi}/${qaurterlyId}`;
+  let data = {};
+  data.id = `${qaurterlyId}`
+  data.text = `${goal}`;
+  data.completed = true;
+  var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": `${idUrl}`,
+    "method": "PUT",
+    "headers": {
+      "Authorization": `Bearer ${token}`,
+      "Content-Type": "application/json",
+      "cache-control": "no-cache",
+    },
+    "processData": false,
+    "data": JSON.stringify(data)
+  }
+  $.ajax(settings).done(function(response) {
+    console.log(response);
+    //Get the object and push it back up to dispaly
+    getQuarterlyData();
+  });
 }
 
 function completeWeeklyGoals(weeklyData) {
-    let weeklyId = $('.weekly-id').val();
-    let goal = $('.text-weekly').val();
-    let idUrl = `${weeklyApi}/${weeklyId}`;
-    let data = {};
-    data.id = `${weeklyId}`
-    data.text = `${goal}`;
-    data.completed = true;
-    var settings = {
-      "async": true,
-      "crossDomain": true,
-      "url": `${idUrl}`,
-      "method": "PUT",
-      "headers": {
-        "Content-Type": "application/json",
-        "cache-control": "no-cache",
-      },
-      "processData": false,
-      "data": JSON.stringify(data)
-    }
-    $.ajax(settings).done(function(response) {
-      console.log(response);
-      //Get the object and push it back up to dispaly
-      getWeeklyData();
-    });
+  let weeklyId = $('.weekly-id').val();
+  let goal = $('.text-weekly').val();
+  let idUrl = `${weeklyApi}/${weeklyId}`;
+  let data = {};
+  data.id = `${weeklyId}`
+  data.text = `${goal}`;
+  data.completed = true;
+  var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": `${idUrl}`,
+    "method": "PUT",
+    "headers": {
+      "Authorization": `Bearer ${token}`,
+      "Content-Type": "application/json",
+      "cache-control": "no-cache",
+    },
+    "processData": false,
+    "data": JSON.stringify(data)
+  }
+  $.ajax(settings).done(function(response) {
+    console.log(response);
+    //Get the object and push it back up to dispaly
+    getWeeklyData();
+  });
 }
 
 //-------------POST requests-------------------//
@@ -730,6 +841,7 @@ function postStretchGoals() {
     "url": `${stretchApi}`,
     "method": "POST",
     "headers": {
+      "Authorization": `Bearer ${token}`,
       "Content-Type": "application/json",
       "cache-control": "no-cache",
     },
@@ -754,6 +866,7 @@ function postQuarterlyGoals() {
     "url": `${quarterlyApi}`,
     "method": "POST",
     "headers": {
+      "Authorization": `Bearer ${token}`,
       "Content-Type": "application/json",
       "cache-control": "no-cache",
     },
@@ -778,6 +891,7 @@ function postWeeklyGoals() {
     "url": `${weeklyApi}`,
     "method": "POST",
     "headers": {
+      "Authorization": `Bearer ${token}`,
       "Content-Type": "application/json",
       "cache-control": "no-cache",
     },
